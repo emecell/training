@@ -61,7 +61,14 @@
 	* preamble
 
 
+# Optional additional reading
+
+1. [Codecademy HTML & CSS track][codec]
+	* great series of starting tutorials if you're very new to HTML & CSS
+2. ?
+
 <!-- LINKS -->
 
  [cani]: http://caniuse.com/
  [meyer]: http://meyerweb.com/eric/css/
+ [codec]: http://www.codecademy.com/tracks/web
