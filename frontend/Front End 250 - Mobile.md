@@ -51,7 +51,10 @@ We have two main ways to handle the construction of mobile web pages and apps:
 From a performance standpoint, Mobile First is the preferable approach. It's only really practical on a clean-sheet design, though.
 
 
+# Additional reading (optional)
 
+1. [Mobile First, by Luke Wroblewski][mflw]
 
  [sencha-perf]: http://www.sencha.com/blog/5-myths-about-mobile-web-performance/
  [sealed]: http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/
+ [mflw]: http://www.abookapart.com/products/mobile-first

@@ -39,7 +39,6 @@
 	* table-cell
 5. resources
 	* [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
-	* [Eric Meyer][meyer] - an authority on CSS. Articles, tools, & books.
 
 
 ## LESS is moar
@@ -61,11 +60,13 @@
 	* preamble
 
 
-# Optional additional reading
+# Additional reading (optional)
 
 1. [Codecademy HTML & CSS track][codec]
 	* great series of starting tutorials if you're very new to HTML & CSS
-2. ?
+2. [Eric Meyer][meyer]
+ 	* an authority on CSS. Articles, tools, & books.
+3. ?
 
 <!-- LINKS -->
 
