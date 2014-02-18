@@ -11,9 +11,25 @@
 	* use the right thing in the right place
 	* nesting of block vs inline elements
 
+````html
+<div id="unique" class="reusable multiple" style="">
+	div:	block html element. contains attributes:
+		id: 	once per page. use sparingly.
+		class:	this is your swiss army knife. can reference multiple classes.
+		style:	defines an inline style. DO NOT USE.
+
+	inline html elements:
+		<span class="highlight">inline styling</span>
+		<em>em</em>, not <i>italic</i>.
+		<strong>strong</strong>, not <b>bold</b>.
+</div>
+````
 
 ## CSS overview
 
+0. Cascading Style Sheets are a standard that defines how browsers should display an element on a page.
+	* why is CSS important?
+	* what version is supported?
 1. selectors
 2. specificity
 3. inheritance
@@ -21,11 +37,14 @@
 	* more detail on block vs inline
 	* float vs inline-block
 	* table-cell
+5. resources
+	* [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
+	* [Eric Meyer][meyer] - an authority on CSS. Articles, tools, & books.
 
 
 ## LESS is moar
 
-1. differences
+1. differences from CSS
 	* nesting
 	* mixins
 	* variables & globals
@@ -40,3 +59,9 @@
 	* variables (consistency, etc)
 	* basic functions (math, etc)
 	* preamble
+
+
+<!-- LINKS -->
+
+ [cani]: http://caniuse.com/
+ [meyer]: http://meyerweb.com/eric/css/
