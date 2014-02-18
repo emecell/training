@@ -1,6 +1,10 @@
 # Setting up Subl
 
-* package manager
+* [Package Control][spc] is a package manager built into sublime. Install it. Now.
+* Must-have packages:
+	* [GitGutter][gg] - git +/-/• in your sidebar
+	* [LESS][less] - syntax highlighting for everybody's favorite CSS preprocessor (not really).
+	* [Sass][sass] - if you happen to need Sass, which is better than LESS, here is syntax highlighting.
 * workspace - add `~/$REDFIN_MAIN/` folder
 	* exclude target folders:
 	````js
@@ -48,3 +52,10 @@
 * themes
 * syntax highlighting
 * minimap
+
+
+<!-- LINKS -->
+ [spc]: https://sublime.wbond.net/
+ [gg]: https://sublime.wbond.net/packages/GitGutter
+ [less]: https://sublime.wbond.net/packages/LESS
+ [sass]: https://sublime.wbond.net/packages/Sass
