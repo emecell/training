@@ -6,6 +6,9 @@
 1. tags
 	* basic css: block vs inline
 2. html5 syntax
+	* valid code (nested properly, no weird attributes)
+	* void elements are self-contained, must not have contents, and can be marked up as 'self-closing' tags with an end `/` to better illustrate this.
+		For example, this image tag is self-closing: `<img src="foo" ... />`.
 3. attributes / data attrs
 4. semantic HTML
 	* use the right thing in the right place
@@ -59,7 +62,17 @@ Cascading Style Sheets are a standard that defines how browsers should display a
 	| `E:before`		 | pseudo-element selector
 	| `E > F`, `E + E`	 | child & sibling selectors
 
-2. the cascade
+2. the **cascade** is how a browser determines which style "wins" if multiple styles are competing.
+	* For a given element and property:
+		1. Find all matching selectors
+		2. Sort according to importance and origin
+			* importance = whether or not property has !important
+			* origin:
+				* user-agent (browser default styles)
+				* user (user overrides of browser defaults)
+				* author (website)
+		3. Sort rules with same importance and origin by specificity
+		4. Finally, sort by order specified. Last rule specified wins
 3. specificity
 4. inheritance
 5. layout
@@ -93,12 +106,13 @@ Cascading Style Sheets are a standard that defines how browsers should display a
 
 1. [Codecademy HTML & CSS track][codec]
 	* great series of starting tutorials if you're very new to HTML & CSS
-2. [Eric Meyer][meyer]
+2. [MDN Intro to HTML][mdnintro]
+3. [Eric Meyer][meyer]
  	* an authority on CSS. Articles, tools, & books.
-3. ?
 
 <!-- LINKS -->
 
  [cani]: http://caniuse.com/
+ [mdnintro]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
