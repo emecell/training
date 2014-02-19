@@ -153,7 +153,7 @@ Also known as "direct descendant", child selectors target *only* the immediate c
 
 The **cascade** is how a browser determines which CSS declaration "wins" if multiple rules are competing.
 
-For a given node:
+For a given node (from [MDN][^fn-mdncascade]):
 
 1. Find all matching selectors
 2. Sort according to importance and origin
@@ -215,5 +215,6 @@ For a given node:
 
  [cani]: http://caniuse.com/
  [mdnintro]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction
+ [^fn-mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
