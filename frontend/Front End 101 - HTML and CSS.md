@@ -27,27 +27,46 @@
 
 ## CSS overview
 
-0. Cascading Style Sheets are a standard that defines how browsers should display an element on a page.
-	* why is CSS important?
-	* what version is supported?
-1. selectors
+Cascading Style Sheets are a standard that defines how browsers should display an element on a page.
 
-	| example			 | selector description |
-	| ------------------ | -------------------- |
+### Why use CSS?
+
+* We can separate structure and content from presentation.
+	* We can theme widgets, and leave the HTML alone, but change the way they're displayed.
+* CSS allows us to name and reuse frequently-used groups of styles. These can include the following attributes (and more):
+	* text color
+	* font attributes (face, size, weight, style)
+	* width
+	* height
+	* height of lines
+	* background color, transparency, repetition, image
+	* etc.
+* What version of the spec is supported?
+	* the vast majority of CSS2 is available in all browsers
+	* most of CSS3 is available in the browsers we support (use for progressive enhancement)
+
+### What does CSS entail?
+
+1. **selectors** can be chained together, to create more complex conditions or to build a new visual style
+
+	| example			 | selector description
+	| ------------------ | --------------------
 	| `E`				 | type selector (`E` can be any type)
 	| `.myClass`		 | class selector
 	| `#id`			 	 | id selector
 	| `E[foo=bar]`		 | attribute selector
 	| `E:first-child`	 | pseudo-class selector
 	| `E:before`		 | pseudo-element selector
+	| `E > F`, `E + E`	 | child & sibling selectors
 
-2. specificity
-3. inheritance
-4. layout
+2. the cascade
+3. specificity
+4. inheritance
+5. layout
 	* more detail on block vs inline
 	* float vs inline-block
 	* table-cell
-5. resources
+6. resources
 	* [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
 
 
