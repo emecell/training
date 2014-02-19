@@ -47,6 +47,20 @@ Cascading Style Sheets are a standard that defines how browsers should display a
 
 ## What does CSS entail?
 
+### Anatomy of a CSS rule
+
+````css
+/* CSS Rule: */			/* E & .classname are "simple selectors" */
+E .classname {			/* Selector {} */
+	/* Declaration */
+	color: #000000;		/* Property: Value; */
+	
+	/* Declaration */
+	font-weight: bold	/* Property: Value; */
+}
+````
+
+
 ### Basic selectors
 
 Selectors are a way of describing a node (or nodes) in the DOM tree. There are several levels of specificity, which we will dig into later.
@@ -135,19 +149,27 @@ Also known as "direct descendant", child selectors target *only* the immediate c
 ````
 
 
-### the cascade is how a browser determines which style "wins" if multiple styles are competing.
+### Cascade 
 
-For a given element and property:
+The **cascade** is how a browser determines which CSS declaration "wins" if multiple rules are competing.
+
+For a given node:
 
 1. Find all matching selectors
 2. Sort according to importance and origin
-	* importance = whether or not property has !important
-	* origin:
-		* user-agent (browser default styles)
-		* user (user overrides of browser defaults)
-		* author (website)
+
+	|   | Origin     | importance 		|
+	|---|------------|------------------|
+	| 1 | user agent | normal			|
+	| 2 | user agent | !important		|
+	| 3 | user		 | normal			|
+	| 4 | author	 | normal			|
+	| 5 | author 	 | !important		|
+	| 6 | user		 | !important		|
+
 3. Sort rules with same importance and origin by specificity
 4. Finally, sort by order specified. Last rule specified wins
+
 
 ### specificity
 
