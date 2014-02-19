@@ -1,7 +1,4 @@
-# Front End 101: HTML & CSS
-
-
-## HTML overview
+# HTML overview
 
 1. tags
 	* basic css: block vs inline
@@ -28,11 +25,11 @@
 </div>
 ````
 
-## CSS overview
+# CSS overview
 
 Cascading Style Sheets are a standard that defines how browsers should display an element on a page.
 
-### Why use CSS?
+## Why use CSS?
 
 * We can separate structure and content from presentation.
 	* We can theme widgets, and leave the HTML alone, but change the way they're displayed.
@@ -48,42 +45,124 @@ Cascading Style Sheets are a standard that defines how browsers should display a
 	* the vast majority of CSS2 is available in all browsers
 	* most of CSS3 is available in the browsers we support (use for progressive enhancement)
 
-### What does CSS entail?
+## What does CSS entail?
 
-1. **selectors** can be chained together, to create more complex conditions or to build a new visual style
+### Basic selectors
 
-	| example			 | selector description
-	| ------------------ | --------------------
-	| `E`				 | type selector (`E` can be any type)
-	| `.myClass`		 | class selector
-	| `#id`			 	 | id selector
-	| `E[foo=bar]`		 | attribute selector
-	| `E:first-child`	 | pseudo-class selector
-	| `E:before`		 | pseudo-element selector
-	| `E > F`, `E + E`	 | child & sibling selectors
+Selectors are a way of describing a node (or nodes) in the DOM tree. There are several levels of specificity, which we will dig into later.
 
-2. the **cascade** is how a browser determines which style "wins" if multiple styles are competing.
-	* For a given element and property:
-		1. Find all matching selectors
-		2. Sort according to importance and origin
-			* importance = whether or not property has !important
-			* origin:
-				* user-agent (browser default styles)
-				* user (user overrides of browser defaults)
-				* author (website)
-		3. Sort rules with same importance and origin by specificity
-		4. Finally, sort by order specified. Last rule specified wins
-3. specificity
-4. inheritance
-5. layout
-	* more detail on block vs inline
-	* float vs inline-block
-	* table-cell
-6. resources
-	* [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
+| example			   | Usefulness | selector description
+| -------------------- | ---------- | ------------------------------------
+| `E`				   | medium	  	| type selector (`E` can be any type)
+| `.myClass`		   | **XTREME** | class selector
+| `#id`			 	   | nil 		| id selector
+| `E[foo=bar]`		   | low		| attribute selector
+| `E:first-child`, etc | medium	  	| pseudo-class selector
+| `E:before`		   | low		| pseudo-element selector
+| `E > F`, `E + E`	   | medium	  	| child & sibling selectors
+
+* type selector (`E` can be any type)
+* class selector
+	* the most useful selector, classes can be applied to any element in the DOM.
+	* reusable
+* id selector
+	* going back to basic HTML, these **must** be unique per page.
+	* should be used infrequently, approaching never.
+	* targets a specific element.
+* attribute selector
+* pseudo-class selector
+* pseudo-element selector
+* child & sibling selectors
+
+#### Chaining selectors
+
+Selectors can be **chained** to create more specific style combinations.
+
+````css
+.agent {
+	font-weight: bold;
+}
+.agent.lead {
+	color: @redfin-red; /* this is a global color variable */
+}
+````
+````html
+<div class="agent">
+	<h3>
+		<span class="agent lead">John Redfin</span>
+	</h3>
+</div>
+````
+
+#### Descendant selectors
+
+Sometimes, we want to target only the children of a certain selector or DOM node. Descendant selectors use ` ` whitespace to define that relationship.
+
+````css
+.agent {
+	font-weight: bold;
+}
+.agent .lead {
+	color: @redfin-red;
+}
+````
+````html
+<div class="agent">
+	<h3>
+		<span class="lead">John Redfin</span>
+	</h3>
+</div>
+````
+
+#### Child selectors
+
+Also known as "direct descendant", child selectors target *only* the immediate children of a selector or DOM node. These use `>` a 'greater-than' sign to define that relationship.
+
+````css
+.agent {
+	font-weight: bold;
+}
+.agent > .lead {
+	color: @redfin-red;
+}
+````
+````html
+<div class="agent">
+	<h3 class="lead">
+		<span>John Redfin</span>
+	</h3>
+</div>
+````
 
 
-## LESS is moar
+### the cascade is how a browser determines which style "wins" if multiple styles are competing.
+
+For a given element and property:
+
+1. Find all matching selectors
+2. Sort according to importance and origin
+	* importance = whether or not property has !important
+	* origin:
+		* user-agent (browser default styles)
+		* user (user overrides of browser defaults)
+		* author (website)
+3. Sort rules with same importance and origin by specificity
+4. Finally, sort by order specified. Last rule specified wins
+
+### specificity
+
+### inheritance
+
+### layout
+* more detail on block vs inline
+* float vs inline-block
+* table-cell
+
+### resources
+* [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
+
+
+# LESS is moar
 
 1. differences from CSS
 	* nesting
