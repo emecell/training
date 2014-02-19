@@ -55,6 +55,8 @@ From a performance standpoint, Mobile First is the preferable approach. It's onl
 
 1. [Mobile First, by Luke Wroblewski][mflw]
 
+<!-- LINKS -->
+
  [sencha-perf]: http://www.sencha.com/blog/5-myths-about-mobile-web-performance/
  [sealed]: http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/
  [mflw]: http://www.abookapart.com/products/mobile-first

@@ -14,9 +14,9 @@
 ````html
 <div id="unique" class="reusable multiple" style="">
 	div:	block html element. contains attributes:
-		id: 	once per page. use sparingly.
-		class:	this is your swiss army knife. can reference multiple classes.
-		style:	defines an inline style. DO NOT USE.
+		id=: 	once per page. use sparingly.
+		class=:	this is your swiss army knife. can reference multiple classes.
+		style=:	defines an inline style. DO NOT USE.
 
 	inline html elements:
 		<span class="highlight">inline styling</span>
@@ -31,6 +31,16 @@
 	* why is CSS important?
 	* what version is supported?
 1. selectors
+
+	| example			 | selector description |
+	| ------------------ | -------------------- |
+	| `E`				 | type selector (`E` can be any type)
+	| `.myClass`		 | class selector
+	| `#id`			 	 | id selector
+	| `E[foo=bar]`		 | attribute selector
+	| `E:first-child`	 | pseudo-class selector
+	| `E:before`		 | pseudo-element selector
+
 2. specificity
 3. inheritance
 4. layout
