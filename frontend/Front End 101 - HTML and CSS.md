@@ -13,10 +13,10 @@
 
 ````html
 <div id="unique" class="reusable multiple" style="">
-	div:	block html element. contains attributes:
-		id=: 	once per page. use sparingly.
-		class=:	this is your swiss army knife. can reference multiple classes.
-		style=:	defines an inline style. DO NOT USE.
+	div			block html element. contains attributes:
+		id		once per page. use sparingly.
+		class	this is your swiss army knife. can reference multiple classes.
+		style	defines an inline style. DO NOT USE.
 
 	inline html elements:
 		<span class="highlight">inline styling</span>
@@ -205,10 +205,12 @@ For a given node (from [MDN][^fn-mdncascade]):
 
 # Additional reading (optional)
 
-1. [Codecademy HTML & CSS track][codec]
+* [HTML5 for Web Designers, by Jeremy Keith][abhtml]
+* [CSS3 for Web Designers, by Dan Cederholm][abcss]
+* [Codecademy HTML & CSS track][codec]
 	* great series of starting tutorials if you're very new to HTML & CSS
-2. [MDN Intro to HTML][mdnintro]
-3. [Eric Meyer][meyer]
+* [MDN Intro to HTML][mdnintro]
+* [Eric Meyer][meyer]
  	* an authority on CSS. Articles, tools, & books.
 
 <!-- LINKS -->
@@ -218,3 +220,5 @@ For a given node (from [MDN][^fn-mdncascade]):
  [^fn-mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
+ [abcss]: http://www.abookapart.com/products/css3-for-web-designers
+ [abhtml]: http://www.abookapart.com/products/html5-for-web-designers

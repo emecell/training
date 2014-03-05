@@ -16,6 +16,7 @@
 ## media queries
 
 1. what is a media query? 
+	* Media queries format html differently for different mediums. Early usage was mostly for things like [print or screenreaders](http://www.w3.org/TR/CSS2/media.html). The CSS3 spec added [significantly more power](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries) to media queries, allowing developers to target viewport or device width and height. There are other queries, but they're less useful or poorly supported.
 2. state of the internet
 	* browser support: no IE8
 	* redfin support: no IE <10 unless otherwise specified
@@ -53,10 +54,13 @@ From a performance standpoint, Mobile First is the preferable approach. It's onl
 
 # Additional reading (optional)
 
-1. [Mobile First, by Luke Wroblewski][mflw]
+* [Responsive Web Design, by Ethan Marcotte][abrw]
+* [Mobile First, by Luke Wroblewski][abmf]
+
 
 <!-- LINKS -->
 
  [sencha-perf]: http://www.sencha.com/blog/5-myths-about-mobile-web-performance/
  [sealed]: http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/
- [mflw]: http://www.abookapart.com/products/mobile-first
+ [abrw]: http://www.abookapart.com/products/responsive-web-design
+ [abmf]: http://www.abookapart.com/products/mobile-first
