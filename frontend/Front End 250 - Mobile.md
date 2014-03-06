@@ -63,12 +63,11 @@ Drew Crawford has written an intimidating [10,000 words on why web apps are slow
 
 TODO
 
-* has.js
+* phased loading
+* async performance optimization
+* minimum viable product == mobile; only add desktop crap on desktops
 
-
-## mobile web at Redfin
-
-TODO
+## Implementation
 
 We have two main ways to handle the construction of mobile web pages and apps:
 
@@ -81,8 +80,19 @@ We have two main ways to handle the construction of mobile web pages and apps:
 	* Shoehorn in some CSS to make it look right
 	* Attempt to use has.js after the fact to trim out the bits that perform poorly
 
-From a performance standpoint, Mobile First is the preferable approach. It's only really practical on a clean-sheet design, though.
+From a performance standpoint, Mobile First is the preferable approach. It's often only practical on a clean-sheet design, though.
 
+
+## mobile web at Redfin
+
+TODO
+
+* discuss LESS mixins / preamble
+	* @small-screen variable
+	* @media query function
+	* code examples
+* has.js
+	* code examples
 
 # Additional reading (optional)
 
