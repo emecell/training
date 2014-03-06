@@ -92,13 +92,39 @@ The other useful selectors are **pseudo-classes** and **child and sibling select
 ````
 ````html
 <div class="container">
-	<span class="foo">one</span>
+	<span class="foo">one</span>		only this span will be bold
 	<span class="foo">two</span>
 </div>
 ````
+![http://cl.ly/image/3S1O2s283W1n/Screen%20Shot%202014-03-06%20at%2015.07.23%20.png](http://cl.ly/image/3S1O2s283W1n/Screen%20Shot%202014-03-06%20at%2015.07.23%20.png)
 
-In this example, only the word 'one' will be bold, while both `.foo` spans will be red.
+Similarly, **child & sibling selectors** can allow you to target certain combinations of elements:
 
+````css
+.container {
+	font-family: sans-serif;
+}
+.foo {
+	color: red;
+}
+.bar > .foo {
+	font-weight: bold;
+}
+.foo + .foo {
+	font-style: italic;
+}
+````
+````html
+<div class="container">
+	<span class="foo">one</span>
+	<span class="foo">two</span>		this span will be italic
+	<span class="foo">three</span>		so will this span
+	<div class="bar">
+		<span class="foo">four</span>	only this span will be bold
+	</div>
+</div>
+````
+![http://cl.ly/image/0S3c241I3M1R/Screen%20Shot%202014-03-06%20at%2015.29.35%20.png](http://cl.ly/image/0S3c241I3M1R/Screen%20Shot%202014-03-06%20at%2015.29.35%20.png)
 
 
 * attribute selector
