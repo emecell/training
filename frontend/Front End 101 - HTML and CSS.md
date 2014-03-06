@@ -75,14 +75,32 @@ Selectors are a way of describing a node (or nodes) in the DOM tree. There are s
 | `E:before`		   | low		| pseudo-element selector
 | `E > F`, `E + E`	   | medium	  	| child & sibling selectors
 
-* type selector (`E` can be any type)
-* class selector
-	* the most useful selector, classes can be applied to any element in the DOM.
-	* reusable
-* id selector
-	* going back to basic HTML, these **must** be unique per page.
-	* should be used infrequently, approaching never.
-	* targets a specific element.
+**Classes** are by far the most useful selectors, as they can be applied to any element in the DOM. They're also reusable, unlike **ID selectors**, which must be *unique per page*. Realistically, you should use IDs almost *never*, and only when you need to target a specific element. Dojo, our JavaScript library, has ways to select an element without using IDs that you really ought to use instead. **Type** or **element selectors** are somewhat useful, but they are almost always combined with other selectors. Only when setting up the basics of a page or a reset-type stylesheet will you use a lot of pure type selectors.
+
+The other useful selectors are **pseudo-classes** and **child and sibling selectors**. Pseudo-classes allow you to target elements based on their position in the DOM. `.foo:first-child`, for example, will find the [first child](https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child) matching `.foo` in a given parent:
+
+````css
+.container {
+	font-family: sans-serif;
+}
+.foo {
+	color: red;
+}
+.foo:first-child {
+	font-weight: bold;
+}
+````
+````html
+<div class="container">
+	<span class="foo">one</span>
+	<span class="foo">two</span>
+</div>
+````
+
+In this example, only the word 'one' will be bold, while both `.foo` spans will be red.
+
+
+
 * attribute selector
 * pseudo-class selector
 * pseudo-element selector

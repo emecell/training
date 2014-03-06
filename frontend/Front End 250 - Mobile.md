@@ -74,7 +74,7 @@ We have two main ways to handle the construction of mobile web pages and apps:
 1. Mobile First
 	* Build the minimum viable product first
 	* Build it on mobile
-	* Use PE to improve the experience for tablet and desktop
+	* Use media queries + has.js to progressively enhance the experience for tablet and desktop
 2. Mobile Last
 	* Build a desktop page
 	* Shoehorn in some CSS to make it look right
@@ -87,11 +87,14 @@ From a performance standpoint, Mobile First is the preferable approach. It's oft
 
 TODO
 
+* CSS organization
+	* @media queries go where? together, or mixed in? LESS lets us mix in.
 * discuss LESS mixins / preamble
 	* @small-screen variable
 	* @media query function
 	* code examples
 * has.js
+	* optimizing js
 	* code examples
 
 # Additional reading (optional)
