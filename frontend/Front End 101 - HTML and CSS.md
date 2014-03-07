@@ -209,7 +209,7 @@ For a given node, the browser will:
 3. Sort rules with same importance and origin by specificity
 4. Finally, sort by order specified. Last rule specified wins
 
-For a lot more detail, read the [MDN article][mdncascade]) on the CSS Cascade.
+For a lot more detail, read the [MDN article][mdncascade] on the CSS Cascade.
 
 ### Specificity
 
