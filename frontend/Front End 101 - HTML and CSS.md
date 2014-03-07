@@ -75,7 +75,7 @@ Selectors are a way of describing a node (or nodes) in the DOM tree. There are s
 | `E:before`		   | low		| pseudo-element selector
 | `E > F`, `E + E`	   | medium	  	| child & sibling selectors
 
-**Classes** are by far the most useful selectors, as they can be applied to any element in the DOM. They're also reusable, unlike **ID selectors**, which must be *unique per page*. Realistically, you should use IDs almost *never*, and only when you need to target a specific element. Dojo, our JavaScript library, has ways to select an element without using IDs that you really ought to use instead. **Type** or **element selectors** are somewhat useful, but they are almost always combined with other selectors. Only when setting up the basics of a page or a reset-type stylesheet will you use a lot of pure type selectors.
+**Classes** are by far the most useful selectors, as you can apply them to any element in the DOM. They're also reusable, unlike **ID selectors**, which must be *unique per page*. Realistically, you should use IDs almost *never*, and only when you need to target a specific element. Dojo, our JavaScript library, has ways to select an element without using IDs that you really ought to use instead. **Type** or **element selectors** can be useful, but they are almost *always* combined with other selectors. Only when setting up the basics of a page or a reset-type stylesheet will you use a lot of pure type selectors.
 
 The other useful selectors are **pseudo-classes** and **child and sibling selectors**. Pseudo-classes allow you to target elements based on their position in the DOM. `.foo:first-child`, for example, will find the [first child](https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child) matching `.foo` in a given parent:
 
@@ -98,7 +98,7 @@ The other useful selectors are **pseudo-classes** and **child and sibling select
 ````
 ![http://cl.ly/image/3S1O2s283W1n/Screen%20Shot%202014-03-06%20at%2015.07.23%20.png](http://cl.ly/image/3S1O2s283W1n/Screen%20Shot%202014-03-06%20at%2015.07.23%20.png)
 
-Similarly, **child & sibling selectors** can allow you to target certain combinations of elements:
+**Child & sibling selectors** can allow you to target certain combinations of elements:
 
 ````css
 .container {
@@ -127,14 +127,9 @@ Similarly, **child & sibling selectors** can allow you to target certain combina
 ![http://cl.ly/image/0S3c241I3M1R/Screen%20Shot%202014-03-06%20at%2015.29.35%20.png](http://cl.ly/image/0S3c241I3M1R/Screen%20Shot%202014-03-06%20at%2015.29.35%20.png)
 
 
-* attribute selector
-* pseudo-class selector
-* pseudo-element selector
-* child & sibling selectors
-
 #### Chaining selectors
 
-Selectors can be **chained** to create more specific style combinations.
+You may **chain** selectors to create more specific style combinations.
 
 ````css
 .agent {
@@ -174,7 +169,7 @@ Sometimes, we want to target only the children of a certain selector or DOM node
 
 #### Child selectors
 
-Also known as "direct descendant", child selectors target *only* the immediate children of a selector or DOM node. These use `>` a 'greater-than' sign to define that relationship.
+Also known as "direct descendant", child selectors target *only* immediate children of a DOM node. These use `>` a 'greater-than' sign to define that relationship.
 
 ````css
 .agent {
@@ -215,16 +210,22 @@ For a given node (from [MDN][^fn-mdncascade]):
 4. Finally, sort by order specified. Last rule specified wins
 
 
-### specificity
+### Specificity
 
-### inheritance
+Go read Smashing Mag's [CSS Specificity: Things You Should Know](http://coding.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/) by Vitaly Friedman. Come back when you're done. If you're just looking for a refresher, check out Andy Clarke's [CSS: Specificity Wars](http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html), a Star Wars-themed illustration of specificity. 
 
-### layout
+
+### Inheritance
+
+**Inheritance** is similar to the cascade, but tied to the DOM structure of the HTML you're styling.
+
+
+### Layout
 * more detail on block vs inline
 * float vs inline-block
 * table-cell
 
-### resources
+### Resources
 * [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
 
 
