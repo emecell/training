@@ -190,25 +190,26 @@ Also known as "direct descendant", child selectors target *only* immediate child
 
 ### Cascade 
 
-The **cascade** is how a browser determines which CSS declaration "wins" if multiple rules are competing.
+The **cascade** is how a browser determines which CSS declaration "wins" if multiple rules are competing. Different sources of CSS have varying levels of importance. At the high end is an `!important` override rule in a visitor's user stylesheet, and the low end is a normal rule in the browser's default user agent styles. 
 
-For a given node (from [MDN][^fn-mdncascade]):
+For a given node, the browser will: 
 
 1. Find all matching selectors
 2. Sort according to importance and origin
 
-	|   | Origin     | importance 		|
-	|---|------------|------------------|
-	| 1 | user agent | normal			|
-	| 2 | user agent | !important		|
-	| 3 | user		 | normal			|
-	| 4 | author	 | normal			|
-	| 5 | author 	 | !important		|
-	| 6 | user		 | !important		|
+	|   | Origin    			 | importance 		|
+	|---|------------------------|------------------|
+	| 1 | user agent (browser)	 | normal			|
+	| 2 | user agent (browser)	 | !important		|
+	| 3 | user (visitor)		 | normal			|
+	| 4 | author (website)		 | normal			|
+	| 5 | author (website)		 | !important		|
+	| 6 | user (visitor)		 | !important		|
 
 3. Sort rules with same importance and origin by specificity
 4. Finally, sort by order specified. Last rule specified wins
 
+For a lot more detail, read the [MDN article][mdncascade]) on the CSS Cascade.
 
 ### Specificity
 
@@ -217,8 +218,36 @@ Go read Smashing Mag's [CSS Specificity: Things You Should Know](http://coding.s
 
 ### Inheritance
 
-**Inheritance** is similar to the cascade, but tied to the DOM structure of the HTML you're styling.
+**Inheritance** is similar to the cascade, but tied to the DOM structure of the HTML you're styling. In general, rules applied to an HTML element will be *inherited* by that element's children. There are a few exceptions, like borders and backgrounds, which are *non-inherited properties*.
 
+Some of the easiest examples of inheritance are font color, family, and size:
+
+````css
+div {
+	color: grey;
+	font-family: sans-serif;
+}
+p {
+	color: black;
+	font-size: 1.5em;
+}
+em {
+	color: red;
+	font-family: serif;
+}
+````
+````html
+<div>
+	<h1>Headline</h1>
+	<div>Non-paragraph text, that is inheriting the body's font size.</div>
+	<p>Paragraph text at 1.5em, including an emphasized block that will be red. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <em>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</em> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+````
+![http://cl.ly/image/413d3X2y2a41/Screen%20Shot%202014-03-07%20at%2015.21.56%20.png](http://cl.ly/image/413d3X2y2a41/Screen%20Shot%202014-03-07%20at%2015.21.56%20.png)
+
+In the above example, the grey font color and sans-serif font are inherited by the children until overriden by more specific rules. These rules create the black text and larger font in the paragraph, and the red serif emphasized text.
+
+For more reading about inheritance, take a look at the [MDN documentation][mdninheritance].
 
 ### Layout
 * more detail on block vs inline
@@ -262,7 +291,8 @@ Go read Smashing Mag's [CSS Specificity: Things You Should Know](http://coding.s
 
  [cani]: http://caniuse.com/
  [mdnintro]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction
- [^fn-mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
+ [mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
+ [mdninheritance]: https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
  [abcss]: http://www.abookapart.com/products/css3-for-web-designers
