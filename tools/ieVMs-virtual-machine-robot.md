@@ -7,7 +7,7 @@ Install [ievms][ievm] for our major IE versions (8, 9, 10, 11)
 	curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | env IEVMS_VERSIONS="8 9 10 11" bash
 ````
 
-Install [node.js][node], if you haven't already. If eg doesn't work, or nvm barfs, you probably have a screwy install. You'll need to delete `~/.nvm` and reinstall node.	
+Install [node.js][node], if you haven't already. If eg doesn't work, or nvm barfs, you probably have a screwy install. You'll need to delete `~/.nvm` and reinstall node from nodejs.org, instead of via homebrew.	
 
 Install [iectrl][iect]
 ````bash
@@ -32,4 +32,4 @@ sudo npm install -g iectrl
 
  [ievm]: https://github.com/xdissent/ievms
  [iect]: https://github.com/xdissent/iectrl
- [nvm]: http://nodejs.org
+ [node]: http://nodejs.org
