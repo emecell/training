@@ -27,23 +27,21 @@
 
 # CSS overview
 
-Cascading Style Sheets are a standard that defines how browsers should display an element on a page.
+Cascading Style Sheets are a [standard](http://www.w3.org/Style/CSS) that defines how browsers should display an element on a page.
 
 ## Why use CSS?
 
-* We can separate structure and content from presentation.
-	* We can theme widgets, and leave the HTML alone, but change the way they're displayed.
-* CSS allows us to name and reuse frequently-used groups of styles. These can include the following attributes (and more):
+The biggest advantage of CSS is the ability to separate structure and content from presentation.Developers can theme widgets, or modify layouts, without touching the HTML. We can also name and reuse frequently-used groups of styles. These can include the following attributes (and more):
+
 	* text color
-	* font attributes (face, size, weight, style)
+	* font attributes (face, size, weight, style, line-height)
 	* width
 	* height
-	* height of lines
-	* background color, transparency, repetition, image
-	* etc.
-* What version of the spec is supported?
-	* the vast majority of CSS2 is available in all browsers
-	* most of CSS3 is available in the browsers we support (use for progressive enhancement)
+	* background color, image, and repetition
+	* transparency
+	* animations and transitions
+
+Like the rest of the web, CSS standards are something of a work in progress. The vast majority of the CSS2 spec is implemented in all browsers, and the important parts of CSS3 are available in the browsers we support. Many of the more advanced features can be added and will only affect browsers that support them, a form of **progressive enhancement**.
 
 ## What does CSS entail?
 
