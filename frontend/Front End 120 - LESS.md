@@ -1,3 +1,5 @@
+*Before reading, you should be familiar with the [basics of HTML & CSS](https://github.com/egid/training/blob/master/frontend/Front%20End%20101%20-%20HTML%20and%20CSS.md)*.
+
 # LESS is moar
 
 LESS is a *CSS preprocessor* that adds a number of features not in the spec. These include nested rules, mixins, variables & globals, and a limited set of functions. 
@@ -71,3 +73,8 @@ Which will output this CSS:
 
 
 
+
+
+
+
+***UP NEXT**: [Javascript](https://github.com/egid/training/blob/master/frontend/Javascript.md)*.
