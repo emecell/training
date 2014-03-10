@@ -247,10 +247,56 @@ In the above example, the grey font color and sans-serif font are inherited by t
 
 For more reading about inheritance, take a look at the [MDN documentation][mdninheritance].
 
-### Layout
-* more detail on block vs inline
-* float vs inline-block
-* table-cell
+## Layout
+
+[READ THIS](https://docs.google.com/a/redfin.com/presentation/d/1VGEjuIGqJ1mYu5F8fVmQrNt48Tf_7tPHSnlpbgtDgzs/edit#slide=id.g29518a1bb_05)
+
+<!--
+
+TODO: Reformat the deck!
+
+### There are many ways to do layout
+
+- Inline-Block
+- Floats
+- Absolute Positioning
+- Tables
+- Flexbox
+
+### Box Model
+
+- Layoyout Diagram
+- Box Sizing
+
+This is very important to understand, you almost always want border-box!
+
+
+### Origin of HTML
+HTML was created a text document format
+Browsers calculate “lines” and position most elements according to the line
+Line height, floats, and display are all “line level” layout mechanisms
+Position is coordinate based
+table is … cell based
+
+### Display Property
+- Block
+- Inline
+- Inline-Block
+- Table + Table-Cell
+
+#### Block
+
+#### Inline
+
+#### Inline-Block
+
+#### Table + Table-Cell
+
+
+-->
+
+
+
 
 ### Resources
 * [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
