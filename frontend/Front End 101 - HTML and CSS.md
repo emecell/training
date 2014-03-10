@@ -25,23 +25,26 @@
 </div>
 ````
 
+
 # CSS overview
 
 Cascading Style Sheets are a [standard](http://www.w3.org/Style/CSS) that defines how browsers should display an element on a page.
+
 
 ## Why use CSS?
 
 The biggest advantage of CSS is the ability to separate structure and content from presentation.Developers can theme widgets, or modify layouts, without touching the HTML. We can also name and reuse frequently-used groups of styles. These can include the following attributes (and more):
 
-	* text color
-	* font attributes (face, size, weight, style, line-height)
-	* width
-	* height
-	* background color, image, and repetition
-	* transparency
-	* animations and transitions
+* text color
+* font attributes (face, size, weight, style, line-height)
+* width
+* height
+* background color, image, and repetition
+* transparency
+* animations and transitions
 
 Like the rest of the web, CSS standards are something of a work in progress. The vast majority of the CSS2 spec is implemented in all browsers, and the important parts of CSS3 are available in the browsers we support. Many of the more advanced features can be added and will only affect browsers that support them, a form of **progressive enhancement**.
+
 
 ## What does CSS entail?
 
@@ -145,6 +148,7 @@ You may **chain** selectors to create more specific style combinations.
 </div>
 ````
 
+
 #### Descendant selectors
 
 Sometimes, we want to target only the children of a certain selector or DOM node. Descendant selectors use ` ` whitespace to define that relationship.
@@ -164,6 +168,7 @@ Sometimes, we want to target only the children of a certain selector or DOM node
 	</h3>
 </div>
 ````
+
 
 #### Child selectors
 
@@ -208,6 +213,7 @@ For a given node, the browser will:
 4. Finally, sort by order specified. Last rule specified wins
 
 For a lot more detail, read the [MDN article][mdncascade] on the CSS Cascade.
+
 
 ### Specificity
 
@@ -308,12 +314,72 @@ LESS is a *CSS preprocessor* that adds a number of features not in the spec. The
 
 At Redfin, we run a modified version of LESS that strips out globals, as they caused some problems in our initial implementations. Instead, we use a preamble rollup that dynamically appends a set of mixins and variables to every LESS stylesheet. This allows us to maintain the benefits of globals without the risk of variables bleeding across sections of the site.
 
-A major risk with writing LESS comes from the ability to nest rules. If the feature is overused, it's easy to wind up with CSS that is far, *far* too specific, and screws up the standard inheritance. Use [less2css.org](http://less2css.org) to test out the results of your LESS and you'll do pretty well.
+A major risk with writing LESS comes from the ability to nest rules. If the feature is overused, it's easy to wind up with CSS that is far, *far* too specific, and screws up the standard inheritance. **Use [less2css.org](http://less2css.org) to test out the results of your LESS** and you'll do pretty well.
 
-4. make full use of:
-	* variables (consistency, etc)
-	* basic functions (math, etc)
-	* preamble
+
+## The preamble
+
+The **LESS preamble** imports several other stylesheets and lives in stingrayStatic:
+
+    main/redfin.stingrayStatic/src/main/resources/images/text/css/common/less-preamble/preamble.less
+
+It's pretty simple. What this file does is import `_colors.less`, `_mixins.less`, and `_media-queries.less`. The **colors** are [documented in the Redfin Style Guide](rsg-colors); the mixins and media-queries utilities are not *but ought to be* (**TODO**: add documentation).
+
+As stated in the Preamble's intro:
+
+>  Before adding this to this file (or any file underneath the less-preamble/ directory), you should talk to some people and decide if that thing you want to add really needs to be global, and available in EVERY file on the site.
+
+> **PLEASE NOTE**: Any changes to the preamble files require a server restart to take effect.
+
+Keep this in mind when adding to the preamble and testing your changes.
+
+
+## Nesting
+
+Unlike CSS, LESS allows the nesting of classes. This can be convenient for organization, but can create something of a rats' nest in the output if you aren't careful.
+
+Here's some example LESS:
+````css
+.foo {
+	font-size: 1em;
+	.bar {
+		font-size: 2em;
+		&.baz {
+			color: red;
+		}
+	}
+	> .bar {
+		font-size: blue;
+	}
+}
+````
+Which will output this CSS:
+````css
+.foo {
+	font-size: 1em;
+}
+.foo .bar {
+	font-size: 2em;
+}
+.foo .bar.baz {
+	color: red;
+}
+.foo > .bar {
+	font-size: blue;
+}
+````
+
+
+
+
+## Variables
+
+
+
+
+## Functions
+
+
 
 
 # Additional reading (optional)
@@ -326,13 +392,19 @@ A major risk with writing LESS comes from the ability to nest rules. If the feat
 * [Eric Meyer][meyer]
  	* an authority on CSS. Articles, tools, & books.
 
+
 <!-- LINKS -->
 
  [cani]: http://caniuse.com/
+
  [mdnintro]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction
  [mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
  [mdninheritance]: https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance
+
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
+ 
  [abcss]: http://www.abookapart.com/products/css3-for-web-designers
  [abhtml]: http://www.abookapart.com/products/html5-for-web-designers
+
+ [rsg-colors]: https://trunk.redfintest.com/admin/style-guide/stingray/brand-colors
