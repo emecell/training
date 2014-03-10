@@ -258,17 +258,12 @@ For more reading about inheritance, take a look at the [MDN documentation][mdnin
 
 # LESS is moar
 
-1. differences from CSS
-	* nesting
-	* mixins
-	* variables & globals
-	* functions (sorta)
-2. Redfin fork
-	* no globals!
-	* preamble mixins
-3. CAUTION:
-	* specificity
-	* inheritance
+LESS is a *CSS preprocessor* that adds a number of features not in the spec. These include nested rules, mixins, variables & globals, and a limited set of functions. 
+
+At Redfin, we run a modified version of LESS that strips out globals, as they caused some problems in our initial implementations. Instead, we use a preamble rollup that dynamically appends a set of mixins and variables to every LESS stylesheet. This allows us to maintain the benefits of globals without the risk of variables bleeding across sections of the site.
+
+A major risk with writing LESS comes from the ability to nest rules. If the feature is overused, it's easy to wind up with CSS that is far, *far* too specific, and screws up the standard inheritance. Use [less2css.org](http://less2css.org) to test out the results of your LESS and you'll do pretty well.
+
 4. make full use of:
 	* variables (consistency, etc)
 	* basic functions (math, etc)
