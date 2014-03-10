@@ -23,14 +23,78 @@ JavaScript has a number of built-in types that you'll use all the time.  Almost 
 - Dates
 - Errors
 
+You can often detirmine the type of variable by using *typeof*
+
+````JS
+var name = 'Kevin';
+console.log(typeof(name));
+````
+**Output**
+````JS 
+"string"
+````
+
+
 
 ### Objects
 
+Javascript objects are a store for unordered name value pairs called properties.  A properties value can be almost anything in Javascript such as numbers, strings, and other objects or even errors and functions!  For those of you with other programming experience Objects are like *dictionaries* or *maps*.
+
+Object properties can be accessed by either dot notation or bracket notation.  A property name can be any valid string, but not all names can be accessed via dot-notation.  Reserved words must be set with bracket notation.  Other names that are not valid javascript identifiers (e.g. starts with a number or contains an hyphen) must be accessed and set with bracket notation.
+
+
+````JS
+var house = {
+	price: 450000,
+	location: {
+		street: "123 Main St",
+		city: "Seattle",
+		state: "WA"
+	},
+	rooms: [
+		kitchen,
+		bathroom,
+		bedroom
+	],
+	getNeighborhood: function() {
+		return "Capitol Hill";
+	},
+	"class": "townhouse",   				// Reserved words must be quoted
+	"display-online": true  				// Invalid names must be quoted
+}
+
+console.log(house.price);
+console.log(house.location.street); 
+console.log(house.class)  					// Names of reserved words can be accessed with dot-notation
+console.log(house['display-online']);    	// Invalid names must be accessed with bracket notation
+````
+
+
 ### Strings
+
+Strings are simple text stores, but also have handy utility functions such as .length.
+
+
+
+
+Strings can be concatenated with a plus symbol + ' ';
+
+````JS
+var location = 'Seattle, ' + 'Washington';
+console.log(location);
+console.log(typeof(location));
+console.log(location.length)
+````
+**Output**
+````JS 
+"Seattle, Washington"
+"string"
+19
+````
 
 ### Numbers
 
-All JavaScript numbers are floating point, with all the quirks that implies
+All JavaScript numbers are floating point, with all the quirks that implies.  A number that is concatenated with a string outputs a string.
 
 ### Arrays
 
@@ -46,7 +110,9 @@ There are quite a few types of Errors in Javascript, but generally you won't hav
 
 Functions are very special.  We'll talk more about them later.
 
-If you don't specify a return statement, a function will return undefined
+If you don't specify a return statement, a function will return undefined.
+
+Functions are first class objects, they can be passed around just like any other variable.
 
 
 
@@ -76,7 +142,12 @@ console.log()
 
 Variables are declared with the **var** keyword.
 
-However they can also be declared without it.  
+However they can also be declared without it.
+
+### The "new" Keyword
+
+TODO
+
 
 ### Function Scope
 
@@ -94,7 +165,7 @@ console.log(bar);
 
 ````
 
-** Output **
+**Output**
 ````JS 
 42
 Undefined
@@ -104,6 +175,7 @@ Undefined
 ### More on Functions
 
 Functions can be either declared, expressed, or both.  (whooo?!?!?)
+
 
 #### Function Declaration
 
@@ -137,8 +209,6 @@ Hello Kevin
 
 #### Named Function Expression
 
-
-
 ````JS 
 var sayHello = function doHello(name) {
 	console.log('Hello ' + name);
@@ -163,6 +233,10 @@ Our JS framework does some internal trickery to to make it so that we don't have
 
 
 ### Variable Hoisting
+
+Variable declarations in JavaScript are hoisted to the top of their containing function.  Consider pre-empting confusion, and doing the hoisting yourself. 
+
+#### Simple Variable Hoisting
 
 ````JS
 function sumNumbers(){
@@ -197,8 +271,63 @@ function sumNumbers(){
 }
 ````
 
+#### Functions and Hoisting
+
+Function declarations are subject to hoisting, but function expressions are not.
 
 
+### Closures
+
+All javascript functions are closures.  This means that they can refer to variables that were in scope when they were defined.  This is an extemely useful tool.
+
+````JS
+function makeCounter() {
+	var count = 0;
+	return function() {
+		count += 1;
+		return count;
+	}
+}
+var count = makeCounter();
+console.log(count());
+console.log(count());
+console.log(count());
+````
+**Output**
+
+````JS 
+1
+2
+3
+````
+
+One of the reasons that closures are so useful is when dealing with actions taken by the user, such as clicking on a button.  The example below illustrates how closures can be used to provide a variable to other functions that could be run at any time or in any order.  Both functions have a reference **to the same food**.
+
+````JS
+function attachClickEvent() {
+	var food = 'Burrito';
+	var nodeOne = document.getElementById("one");
+	nodeOne.onclick = function() {
+		console.log(food + ' is a type of food.')
+	};
+	var nodeTwo = document.getElementById("two");
+	nodeTwo.onclick = function() {
+		console.log('I really like ' + food + 's');
+	};
+};
+attachClickEvent();
+````
+
+
+## The "this" reference
+
+Remember how we saw that functions created variable scope?  There's more to it, functions not only create scope, but context.  When functions are run they run within a *context* this context is accessable via *.this*  Not all functions are bound to a specifc context however.
+
+### Window Context
+
+Functions that are not explcitly bound to an object run in the *window* context.  This, for all purposes, can be described as the global context, but in a browser, its the window object.
+
+### Object Context
 
 
 
