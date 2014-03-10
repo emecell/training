@@ -25,23 +25,26 @@
 </div>
 ````
 
+
 # CSS overview
 
 Cascading Style Sheets are a [standard](http://www.w3.org/Style/CSS) that defines how browsers should display an element on a page.
+
 
 ## Why use CSS?
 
 The biggest advantage of CSS is the ability to separate structure and content from presentation.Developers can theme widgets, or modify layouts, without touching the HTML. We can also name and reuse frequently-used groups of styles. These can include the following attributes (and more):
 
-	* text color
-	* font attributes (face, size, weight, style, line-height)
-	* width
-	* height
-	* background color, image, and repetition
-	* transparency
-	* animations and transitions
+* text color
+* font attributes (face, size, weight, style, line-height)
+* width
+* height
+* background color, image, and repetition
+* transparency
+* animations and transitions
 
 Like the rest of the web, CSS standards are something of a work in progress. The vast majority of the CSS2 spec is implemented in all browsers, and the important parts of CSS3 are available in the browsers we support. Many of the more advanced features can be added and will only affect browsers that support them, a form of **progressive enhancement**.
+
 
 ## What does CSS entail?
 
@@ -145,6 +148,7 @@ You may **chain** selectors to create more specific style combinations.
 </div>
 ````
 
+
 #### Descendant selectors
 
 Sometimes, we want to target only the children of a certain selector or DOM node. Descendant selectors use ` ` whitespace to define that relationship.
@@ -164,6 +168,7 @@ Sometimes, we want to target only the children of a certain selector or DOM node
 	</h3>
 </div>
 ````
+
 
 #### Child selectors
 
@@ -208,6 +213,7 @@ For a given node, the browser will:
 4. Finally, sort by order specified. Last rule specified wins
 
 For a lot more detail, read the [MDN article][mdncascade] on the CSS Cascade.
+
 
 ### Specificity
 
@@ -295,25 +301,12 @@ table is … cell based
 
 -->
 
+***UP NEXT**: [an introduction to LESS CSS](https://github.com/egid/training/blob/master/frontend/Front%20End%20120%20-%20LESS.md)*.
 
 
 
 ### Resources
 * [caniuse.com][cani] - a series of compatibility tables for HTML5, CSS3, and other features.
-
-
-# LESS is moar
-
-LESS is a *CSS preprocessor* that adds a number of features not in the spec. These include nested rules, mixins, variables & globals, and a limited set of functions. 
-
-At Redfin, we run a modified version of LESS that strips out globals, as they caused some problems in our initial implementations. Instead, we use a preamble rollup that dynamically appends a set of mixins and variables to every LESS stylesheet. This allows us to maintain the benefits of globals without the risk of variables bleeding across sections of the site.
-
-A major risk with writing LESS comes from the ability to nest rules. If the feature is overused, it's easy to wind up with CSS that is far, *far* too specific, and screws up the standard inheritance. Use [less2css.org](http://less2css.org) to test out the results of your LESS and you'll do pretty well.
-
-4. make full use of:
-	* variables (consistency, etc)
-	* basic functions (math, etc)
-	* preamble
 
 
 # Additional reading (optional)
@@ -326,13 +319,19 @@ A major risk with writing LESS comes from the ability to nest rules. If the feat
 * [Eric Meyer][meyer]
  	* an authority on CSS. Articles, tools, & books.
 
+
 <!-- LINKS -->
 
  [cani]: http://caniuse.com/
+
  [mdnintro]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction
  [mdncascade]: https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade
  [mdninheritance]: https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance
+
  [meyer]: http://meyerweb.com/eric/css/
  [codec]: http://www.codecademy.com/tracks/web
+ 
  [abcss]: http://www.abookapart.com/products/css3-for-web-designers
  [abhtml]: http://www.abookapart.com/products/html5-for-web-designers
+
+ [rsg-colors]: https://trunk.redfintest.com/admin/style-guide/stingray/brand-colors
