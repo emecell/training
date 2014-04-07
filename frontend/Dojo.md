@@ -1,5 +1,9 @@
 # Dojo
 
+## Why this document?
+
+You'd be right to assume that Dojo has its own extensive documnentation.  However, the project is huge, and it's frankly not worth your time to read through all of it.  We've used Dojo for a while here at Redfin, so this document aims to help you learn what we already have.  Specifically, this document lightly details the parts of Dojo that we like and find useful. 
+
 ## What is Dojo?
 
 A JavaScript Framework like JQuery, etc.
@@ -13,7 +17,8 @@ A JavaScript Framework like JQuery, etc.
 
 - Provides a framework for writing Widgets (classes)
 - Implements a form of inheritance in JavaScript
-- Provides a mechanism for encapsulating a piece of code and defining its dependencies. 
+- Provides a mechanism for encapsulating a piece of code and defining its dependencies.
+- Dojo is one of the most Java like JS frameworks
 
 ### AMD Style and Require.js
 
@@ -247,7 +252,305 @@ require(["redfin/training/ClassC"], function (ClassC) {
 - In this example, this is what happens:
 	- Look at C for 'say' function
 	- Look at B - Recursively look at inheritance chain of B, working from right to left
-	- Look at A - Recursively look at inheritance chain of A, working from right to left 
+	- Look at A - Recursively look at inheritance chain of A, working from right to left
+- This is a good mental model to have, but it breaks down in the case where two or more the mixins (or the superclass) share a common mixin. In that case, you should go read about the algorithm they use to determine where in the hierarchy the method gets executed here:  http://dojotoolkit.org/reference-guide/1.8/dojo/_base/declare.html#multiple-inheritance
+- Honestly, it gets a lot harder to think about if you have two classes/mixins in your inheritance chain that both inherit from the same class/mixin. For now, suffice it to say that dojo ensures that only one copy of the duplicated class's method is called
 
+#### declare() Gotchas
+
+***redfin/training/ClassD.js***
+````Js
+define([], function () {
+	return declare("redfin.training.ClassD", [], {
+		aList: [],
+		aMap: {},
+		someFunction: function () {
+			// ...
+		},
+	});
+});
+````
+- As a consequence of JavaScript's prototypal nature, aList and aMap will be shared with all instances of ClassD.
+- This will bite you eventually. You have been warned!
+- The array and object literals are evaluated when the callback function is invoked, not when the class is instantiated. That's an important difference from Java
+- If you want to have a separate aList and aMap for each class you should instantiate them in the constructor:
+
+***redfin/training/ClassD.js***
+````Js
+define([], function () {
+	return declare("redfin.training.ClassD", [], {
+		aList: null,
+		aMap: null,
+		constructor: function () {
+			this.aList = [];
+			this.aMap = {};
+		}
+	});
+});
+````
+
+
+## Useful Dojo API Functionality
+
+### dojo/_base/lang
+
+#### lang.mixin()
+
+***Example***
+````JS
+require(["dojo/_base/lang"], function (lang) {
+
+	var obj = {
+		x: 1,
+		y: 2
+	};
+
+	lang.mixin(obj, {
+		y: 20,
+		z: 30
+	});
+
+	console.log(obj);
+
+});
+````
+
+***Output***
+````JS
+{ x: 1, y: 20, z: 30}
+````
+
+- lang.mixin() copies properties from one object to another, overwriting existing properties
+
+#### lang.hitch()
+
+***Example***
+````JS
+require(["dojo/_base/lang"], function (lang) {
+
+	var objA = {
+		foo: 'bar'
+	};
+
+	var objB = {
+		foo: 'baz'
+	};
+
+	var printFoo = function () {
+		console.log(this.foo);
+	};
+
+	var printFooA = lang.hitch(objA, printFoo);
+	var printFooB = lang.hitch(objB, printFoo);
+
+	printFoo();
+	printFooA();
+	printFooB();
+});
+````
+***Output***
+````JS
+undefined
+bar
+baz
+````
+
+- lang.hitch() returns a function that will always be executed in the context of the given object. It provides a cross-browser compatible version of Function.bind() that was introduced in the ECMAScript 5 standard.
+- This example is somewhat contrived, but it should serve to illustrate the point. 
+
+### dojo/_base/array
+
+Basic array utilities.  Full list: http://dojotoolkit.org/reference-guide/1.8/dojo/_base/array.html.  These array functions were all standardized as part of ECMAScript 5. Not all browsers support the standard yet though, so we use Dojo's implementations instead of the browser built-ins.
+
+The parameters to the callback functions can be found in the API docs. Generally they are: element, index, array
+
+See also: 
+- indexOf
+- lastIndexOf
+- some
+- every
+
+
+
+#### array.map()
+
+Create new array by applying the function to every element in the input
+
+***Example***
+````JS
+require(["dojo/_base/array"], function (array) {
+	var myArr = [1, 2, 3, 4];
+	var doubledArr = array.map(myArr, function (elt, idx) {
+		return elt * 2;
+	}); 
+	console.log(doubledArr);
+});
+````
+
+***Output***
+````JS
+[2, 4, 6, 8]
+````
+
+#### array.forEach()
+
+Loop over every element in the array
+
+***Example***
+````JS
+require(["dojo/_base/array"], function (array) {
+	var myArr = [1, 2, 3, 4];
+	array.forEach(myArr, function (elt, idx) {
+		console.log("Value at index " + idx + " is " + elt);
+	}, this);
+});
+````
+
+***Output***
+````JS
+Value at index 0 is 1
+Value at index 1 is 2
+Value at index 2 is 3
+Value at index 3 is 4
+````
+
+- This is very useful
+- Mostly for cross browser support, as older browsers don't support native .forEach on array instances
+- Note: the ', this' at the end of the function binds the function to the 'this' scope, and is optional
+
+
+#### array.filter()
+
+Return a new array w/ elements matching the predicate
+
+***Example***
+````JS
+require(["dojo/_base/array"], function (array) {
+	var myArr = [1, 2, 3, 4];
+	var eves = array.filter(myArr, function (elt) {
+		return elt % 2 === 0;
+	});
+});
+````
+
+***Output***
+````JS
+[2, 4]
+````
+
+### dojo/dom
+
+Full list: http://dojotoolkit.org/reference-guide/1.8/dojo/dom.html
+See also:
+- dojo/dom-style
+- dojo/dom-attr
+- dojo/dom-geometry
+
+#### dom.byId()
+
+Finds the first node in the dom that has the matching id
+
+***Example***
+````JS
+require(["dojo/dom"], function (dom) {
+	var node = dom.byId('myNode'); 
+});
+````
+
+#### dom.isDescendant()
+
+Returns a boolean if one node is a child of the other
+
+***Example***
+````JS
+require(["dojo/dom"], function (dom) {
+	dom.isDescendant(dom.byId('myChildNode'), dom.byId('myNode'))
+});
+````
+
+
+### dojo/dom-class
+
+Full list: http://dojotoolkit.org/reference-guide/1.8/dojo/dom-class.html
+
+#### domClass.add()
+
+Adds a class to a specified node
+add(node, className)
+
+***Example***
+````JS
+require(["dojo/dom-class"], function (domClass) {
+	domClass.add(node, 'hidden');
+});
+````
+
+#### domClass.remove()
+
+Removes a class from a specified code
+remove(node, className)
+
+***Example***
+````JS
+require(["dojo/dom-class"], function (domClass) {
+	domClass.remove(node, 'hidden');
+});
+````
+
+#### domClass.replace()
+
+Replaces a class (or classes on a specified node)
+replace(node, toAdd, toRemove)
+
+***Example***
+````JS
+require(["dojo/dom-class"], function (domClass) {
+	domClass.replace(node, 'someOtherClass', 'someClass');
+	domClass.replace(node, ['three', 'four'], ['one', 'two']);
+});
+````
+
+#### domClass.toggle()
+
+Adds or removes a class on a node based on a boolean conditional
+toggle(node, className, condition)
+
+***Example***
+````JS
+require(["dojo/dom-class"], function (domClass) {
+	domClass.toggle(node, 'hidden', true);
+	domClass.toggle(node, 'hidden', false);
+});
+````
+
+### dojo/Deferred
+
+
+## Dojo Widgets
+
+### Dojo vs. Dijit
+
+### What is a Widget?
+
+### Examples
+
+### dojo/domReady
+
+### Widget Lifecycle
+
+### Templated Widgets
+
+### Events
+
+
+
+
+## Redfin API 
+
+### redfin/request/xhr
+
+redfin/request/xhr is a wrapper around dojo/request/xhr that sets defaults (method: GET, handleAs: json) and adds a CSRF token to protect our form posts. 
+
+Further info: http://dojotoolkit.org/reference-guide/1.8/dojo/request.html
 
 
