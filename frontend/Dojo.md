@@ -324,6 +324,8 @@ require(["dojo/_base/lang"], function (lang) {
 
 #### lang.hitch()
 
+Changes the context that a function runs in.
+
 ***Example***
 ````JS
 require(["dojo/_base/lang"], function (lang) {
@@ -525,6 +527,59 @@ require(["dojo/dom-class"], function (domClass) {
 
 ### dojo/Deferred
 
+dojo/Deferred is a way to return a "promise" that a value will be computed and made available to the caller later
+Instead of accessing the value directly, you give it a callback that will be executed when the value is available. 
+
+API Docs: http://dojotoolkit.org/reference-guide/1.8/dojo/Deferred.html
+
+Good tutorial: http://dojotoolkit.org/documentation/tutorials/1.8/deferreds/
+
+Effective JavaScript: Item #68
+
+***redfin/training/DeferredExample.js***
+````JS
+require([
+	"dojo/Deferred"
+], function (Deferred) {
+	var dfd = new Deferred();
+	dfd.then(function (value) {
+		console.log("The value I received is: " + value);
+	});
+	dfd.resolve(3);
+});
+````
+
+***Output***
+````JS
+The value I received is 3
+````
+
+
+***redfin/training/DeferredExample2.js***
+````JS
+require([
+	"dojo/Deferred"
+], function (Deferred) {
+	var dfd = new Deferred();
+	dfd.then(
+		function (value) {
+			console.log("Success: " + value);
+		},
+		function (value) {
+			console.log("Error: " + value);
+		}
+	);
+	dfd.reject("This is an error!");
+});
+
+````
+
+***Output***
+````JS
+This is an error!
+````
+
+
 
 ## Dojo Widgets
 
@@ -551,6 +606,145 @@ require(["dojo/dom-class"], function (domClass) {
 
 redfin/request/xhr is a wrapper around dojo/request/xhr that sets defaults (method: GET, handleAs: json) and adds a CSRF token to protect our form posts. 
 
+You should always use our XHR and not Dojos
+
+- Common Calls
+	- xhr.get(url, options) - makes a GET request
+	- xhr.post(url, options) - makes a POST request
+- Common Options
+	- handleAs - will nearly always be 'json' (this is optional; it defaults to 'json')
+	- data - used to send data to the server in a POST request
+	- query - used to send data to the server in the URL of a GET or POST request
+- Note: data and query will probably not often be used together, at least in our code
+- get() and post() return deferred promises
+
+
 Further info: http://dojotoolkit.org/reference-guide/1.8/dojo/request.html
+
+#### xhr.post()
+
+***redfin/training/XhrPostClass.js***
+````JS
+define([
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"redfin/request/xhr"
+], function (
+	declare,
+	lang,
+	xhr
+) {
+	return declare("redfin.training.XhrPostClass", [], {
+
+		doRequest: function () {
+			xhr.post(g_secureWebServerUrl + '/tools/dev/api/bindEnumExample', { 
+				data: { 
+					name: "John Smith",
+					number: 123
+				}
+			}).then(
+				lang.hitch(this, this._handleSuccess),
+				lang.hitch(this, this._handleError)
+			);
+		},
+
+		_handleSuccess: function (response) { console.log(response); },
+		_handleError: function (response) { console.log(response); }
+
+	});
+});
+````
+- Makes a HTTP POST request to https://www.redfin.com/some/other/url
+- Passes POST parameters in the body of the request: 
+	- name = "John Smith"
+	- number = 123
+- Parses the response as JSON
+
+
+***redfin/training/XhrPostClassWithQuery.js***
+````JS
+define([
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"redfin/request/xhr"
+], function (
+	declare,
+	lang,
+	xhr
+) {
+	return declare("redfin.training.XhrPostClassWithQuery", [], {
+
+		doRequest: function () {
+			xhr.post(g_secureWebServerUrl + '/tools/dev/api/bindEnumExample', { 
+				data: { 
+					name: "John Smith"
+				},
+				query: { id: 3 }
+			}).then(
+				lang.hitch(this, this._handleSuccess),
+				lang.hitch(this, this._handleError)
+			);
+		},
+
+		_handleSuccess: function (response) { console.log(response); },
+		_handleError: function (response) { console.log(response); }
+
+	});
+});
+````
+- Makes a HTTP POST request to https://www.redfin.com/a/final/url?id=3
+- Passes POST parameters in the body of the request: 
+	- name = "John Smith"
+- Parses the response as JSON
+
+
+#### xhr.get()
+
+***redfin/training/XhrGetClassWithQuery.js***
+````JS
+define([
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"redfin/request/xhr"
+], function (
+	declare,
+	lang,
+	xhr
+) {
+	return declare("redfin.training.XhrPostClassWithQuery", [], {
+
+		doRequest: function () {
+			xhr.get(g_secureWebServerUrl + '/tools/dev/api/bindEnumExample', { 
+				query: { 
+					parameterOne: "Hello World",
+					parameterTwo: 123
+				}
+			}).then(
+				lang.hitch(this, this._handleSuccess),
+				lang.hitch(this, this._handleError)
+			);
+		},
+
+		_handleSuccess: function (response) { console.log(response); },
+		_handleError: function (response) { console.log(response); }
+
+	});
+});
+
+- Makes a HTTP GET request to https://www.redfin.com/some/url?parameterOne=Hello%20World&parameterTwo=123
+- Parses the response as JSON
+
+#### Handling Responses
+
+- The response object is Redfin-defined, it essentially corresponds to ApiResult.java
+- ResultCode is defined by ApiResult.Code in Java
+- errorMessage will be an exception message in the event of an uncaught error, or a friendly-ish message in the event of a validation error. 
+- Generally, if resultCode === g_apiResultCode.NO_ERROR, the errorMessage string is ignored payload is determined by the API endpoint being called, but if data is being returned from the server it will generally be in that object. In simple responses, this might be null. 
+- the second callback is the error callback (which may be obvious)
+- for dojo/request, its role is slightly confusing
+	- it's called if there's some sort of JS error in the success handler (e.g. referencing an undefined variable)
+	- it's called if the server returns a non-200 response (i.e., unexpected server error)
+	- whether or not it's called has nothing to do with the *Redfin result code* from the server
+	- Note: we need an error callback because async callbacks can't throw exceptions in the current context -- there's no appropriate place for a try/catch
 
 
