@@ -209,8 +209,8 @@ In Spanish, we say Hola! instead of Hello
 - this.inherited(arguments) passes the method arguments up to the superclass method
 - if you want to modify the arguments, pass an additional array: this.inherited(arguments, [newArg1, newArg2, ...]); The new array will be passed to the superclass method instead of arguments
 
-### More on declare()
-You may have noticed in the previous example that declare() takes an array.  Dojo provides us with a mechanism for mutliple inheritance.
+### Mutliple Inheritance
+A bit more on declare() You may have noticed in the previous example that declare() takes an array.  Dojo provides us with a mechanism for mutliple inheritance.
 
 ***redfin/training/ClassC.js***
 ````JS
@@ -231,5 +231,23 @@ define([
 - The line between a superclass and a mixin is blurry.  Basically determined by whether or not the entry is first in the array
 - Mixin properties are copied onto an object in the prototype chain at declare time, superclasses are direct references
 - Gory details: If you modify a mixin at runtime, classes inheriting from it won't be updated. If you modify a superclass's prototype at runtime, inheriting classes will see the changes. (But you won't be doing either of those things, so don't worry about it)
+
+#### How are calls dispatched
+
+***Usage***
+````JS
+require(["redfin/training/ClassC"], function (ClassC) {
+	var c = new ClassC();
+	c.say();
+});
+````
+
+- The say function is looked for on ClassC first
+- If not found, dojo works its way through the inheritance chain from right to left and recurses
+- In this example, this is what happens:
+	- Look at C for 'say' function
+	- Look at B - Recursively look at inheritance chain of B, working from right to left
+	- Look at A - Recursively look at inheritance chain of A, working from right to left 
+
 
 
