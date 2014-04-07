@@ -12,7 +12,7 @@ A great deal of this section will show you how to do somthing, then tell you nev
 ## Built Ins (Fundemental objects)
 JavaScript has a number of built-in types that you'll use all the time.  Almost everything is Javascript extends the basic Object, so everything behaves somewhat like an Object.
 
-*** Common Object Types ***
+**Common Object Types**
 
 - Objects - { foo: 'bar'}
 - Strings - "a string!"
@@ -74,9 +74,6 @@ console.log(house['display-online']);    	// Invalid names must be accessed with
 
 Strings are simple text stores, but also have handy utility functions such as .length.
 
-
-
-
 Strings can be concatenated with a plus symbol + ' ';
 
 ````JS
@@ -120,18 +117,43 @@ Functions are first class objects, they can be passed around just like any other
 
 ## Debugging
 
-You'll see in later examples a couple ways that we can do debugging.
+Most modern browsers have fairly good debugging capabilites built in.  They allow you to set breakpoints, log things out, and inspect various objects. This tutorial applies mostly to Chrome, but other browsers have debugging capabilities as well.
 
 ### The Console
 
-console.log()
+````JS 
+console.log();
+````
+
+You can use the console.log() statement in your scripts to output information to the javascript console.  The log statment does not stop execution and is an exelent way to quickly check if variables are set to their intended values or if functions are running in the expected order.
+
+While the debugger is paused (see next section), you can used the console to examine and manipulate variables that are in scope.
 
 ### The Debugger
 
+````JS 
+debugger;
+````
 
+Add a debugger statement on any line in a JS file to have the browser debugging tools pause there.
 
+Caveat: the dev tools usually have to be open in order for the debugger statement to be respected. 
 
+In Chrome, you can also add breakpoints in the by opening the sources tab and clicking a line number.
 
+Once the debugger has triggered, in the sources tab you will have controls to step though the code.
+
+The watch pane allows you to type arbitrary expressions that will be evaluated while stepping
+
+Scope variables show you both local variables, and the variables available via the closure. 
+
+You can edit the values in the Scope Variables pane as well. 
+
+To quickly test a code change, you can edit scripts directly in the Sources pane. 
+Click into the file's contents and start editing. 
+Ctrl+S/Cmd+S "saves". 
+
+Changes aren't saved to disk, and don't persist across page loads. 
 
 
 
@@ -146,7 +168,23 @@ However they can also be declared without it.
 
 ### The "new" Keyword
 
-TODO
+The new keyword in javascript creates an instance of either a user defined object or a built in.  There is a great deal of debate in the Javscript community on what proper best practices are for using the new keyword.  For brevity I'll offer this advice
+
+***Do***
+
+- Use 'new' for creating new instances of dojo classes
+- Use 'new' for creating new Date instances
+- Create instances of built ins with their simple constructor
+````JS
+var myArray = ['a', 'b', 'c'];
+````
+
+***Don't***
+
+- Use 'new' for creating arrays, objects, strings, and other built ins.  
+````JS
+var myArray = new Array('a', 'b', 'c');
+````
 
 
 ### Function Scope
@@ -321,14 +359,18 @@ attachClickEvent();
 
 ## The "this" reference
 
-Remember how we saw that functions created variable scope?  There's more to it, functions not only create scope, but context.  When functions are run they run within a *context* this context is accessable via *.this*  Not all functions are bound to a specifc context however.
+Remember how we saw that functions created variable scope?  There's more to it, functions not only create scope, but context.  When functions are run they run within a *context* this context is accessable via *.this*  In other programming languages you may call this ".self"
+
 
 ### Window Context
 
-Functions that are not explcitly bound to an object run in the *window* context.  This, for all purposes, can be described as the global context, but in a browser, its the window object.
+Not all functions are bound to a specifc context however.
+
+Functions that are not explcitly bound to an object run in the *window* context.  This, for all purposes, can be described as the global context, but in a browser, its the window object.  So, when you see your .this object be *window* in your debugger or console, your code is running in the *window* context, which in almost every case, you don't want. (Globals bad)
 
 ### Object Context
 
+When the function that is running is a method on an object, the .this keyword is a reference to the instance of that object.  This is incredibly powerful as it allows us to store information on the instance instead of in the global scope.  Dojo relies heavily on this mechanism to create the class like usage of widget.
 
 
 
@@ -356,6 +398,8 @@ Every value in JavaScript coerces to true except:
 
 
 ### Examples
+
+TODO: Clean this up
 
 var x = 0;
 if (!x) {
