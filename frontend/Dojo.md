@@ -583,21 +583,335 @@ This is an error!
 
 ## Dojo Widgets
 
-### Dojo vs. Dijit
+
+### What is Dijit?
+
+- A part of Dojo
+- A framework for creating UI widgets
 
 ### What is a Widget?
 
-### Examples
+Any reusable UI element.  We have thousands, ranging from a simple display of a item in a list to whole pages.  Where Carl Sagan said "We are made of star stuff" our web interface is made of widget stuff.  Lots of widget stuff.  A loose definition of a widget is a tight paring of a dom fragment (a chunk of html) and a Dojo class
 
-### dojo/domReady
+Why widgets?
+- Modular: you can easily write code that can be reused
+- Templating happens in Javascript on the client side
+	- No compile step for small UI changes
+	- Instant, dynamic updates to the UI with no server round trip
+	- Easy to inspect and debug in the browser
+- It's not JSP (which we used to use)
 
-### Widget Lifecycle
+
+### Widget Basics
+
+Lets start with an example
+
+***redfin/training/WidgetExample.js***
+````JS
+define([
+	"dojo/_base/declare",
+	"dijit/_WidgetBase"
+], function (
+	declare,
+	_WidgetBase
+) {
+	return declare("redfin.training.WidgetExample", [_WidgetBase], {
+		postCreate: function () {
+			this.inherited(arguments);
+			this.domNode.innerHTML = 'Hello World!';
+		}
+	});
+});
+````
+
+***Usage***
+````HTML
+<html>
+	<script type="text/javascript">
+		require([
+			"dojo/dom", 
+			"redfin/training/WidgetExample",
+			"dojo/domReady!"
+		], function (
+			dom,
+			WidgetExample
+		) {
+			new WidgetExample({}, dom.byId('widgetNode'))
+		});
+	</script>
+	<body>
+		<div id="widgetNode"></div>
+	</body>
+</html>
+````
+
+***Output***
+````JS
+Hello World
+````
+
+#### dijit/_WidgetBase
+
+- The base class for all Dijits; defines the widget lifecycle.  More on this soon.
+- Old version: dijit/_Widget (lots of code still extends this, but don't use it)
+- Also provides generic get()/set() property accessors, and the ability to write custom accessors for individual properties
+- Every widget takes two arguments
+	1. An argument object containing all the parameters for the widget that will be "mixed in" to the widget as part of its instantiation. 
+	2. An optional node reference.
+
+
+More info: http://dojotoolkit.org/documentation/tutorials/1.8/understanding_widgetbase/
+
 
 ### Templated Widgets
 
+- Creates tempalted dom from a stored snippet
+
+#### Basic Example
+
+***redfin/training/TemplatedWidget.js***
+````JS
+define([
+	"dijit/_WidgetBase",
+	"dijit/_TemplatedMixin",
+], function (
+	_WidgetBase,
+	_TemplatedMixin,
+) {
+	return declare("redfin.training.TemplatedWidget", [_WidgetBase, _TemplatedMixin], {
+		templateString: '<div class="TemplatedWidget">Hello World!</div>'
+	});
+
+});
+````
+
+***Usage***
+````HTML
+<html>
+	<script type="text/javascript">
+		require([
+			"dojo/dom", 
+			"redfin/training/TemplatedWidget",
+			"dojo/domReady!"
+		], function (
+			dom, 
+			TemplatedWidget
+		) {
+			new TemplatedWidget({}, dom.byId('widgetNode'))
+		});
+	</script>
+	<body>
+		<div id="widgetNode"></div>
+	</body>
+</html>
+````
+
+- The template for the widget will replace the node that its instanciated at. The node where it was where it was create will no longer exist.
+
+
+
+#### dojo/text!
+
+Dojo text loads a files contents into memory as a string.  We can use this functionality to pull the template HTML out the the javascript file and into an external HTML file.  You should almost always do this.  Don't write HTML in JS files!
+
+
+***redfin/training/TextTemplatedWidget.js***
+````JS
+define([
+	"dijit/_WidgetBase",
+	"dijit/_TemplatedMixin",
+	"dojo/text!./templates/TemplatedWidget.html"
+], function (
+	_WidgetBase,
+	_TemplatedMixin,
+	template
+) {
+	return declare("redfin.training.TextTemplatedWidget", [_WidgetBase, _TemplatedMixin], {
+		templateString: template
+	});
+
+});
+````
+
+***redfin/training/templatesTextTemplatedWidget.html***
+````HTML
+	<div class="TextTemplatedWidget">Hello World!</div>
+````
+
+- This does effectively the same thing as the previous example, but the HTML is in an external file!
+- We always put template files 'templates' folder that is a sibling to the widget class file
+- Example:
+	- .../widget/MyWidget.js
+	- .../widget/templates/MyWidget.html
+- Always put the name of the Widget Class as a CSS class on the root template node! ALWAYS! 
+	- Easier to scope styles to a specific widget
+	- Easier to quickly figure out which widget is generating a certain block of HTML when you're debugging
+	- Widget names should be PascalCase, not camelCase
+
+
+
+#### Advanced Template Functionality
+
+Notes in templates can have certain annotations that templated uses.
+
+##### data-dojo-attach-point 
+Nodes that have a declared attach point have a reference as the attch point name to them copied to the class instance.  This is extremely useful, we use it every day.
+
+##### data-dojo-type
+This allows you to instanciate new widgets directly from the html template.  Do not use this!  TODO: explain why
+
+##### data-dojo-attach-event
+Allows you to register event handlers directly drom the html template.  Do not use this either! TODO: explain why
+
+##### Variable insertion
+You can insert strings into the template with ${} syntax.  Do not use this either either! TODO: explain why
+
+
+
+### Getters and Setters
+
+TODO
+
+
+### Dijit Lifecycle
+
+There are various steps in the instanciation of a dijit.  Each has a special purpose.  
+
+1. constructor()
+2. postMixInProperties()
+3. buildRendering()
+4. Setter Execution 
+5. postCreate()
+6. startup()
+
+***redfin/training/WidgetLifecycle.js***
+````JS
+define([
+	"dijit/_WidgetBase",
+	"dijit/_TemplatedMixin"
+], function (
+	_WidgetBase,
+	_TemplatedMixin
+) {
+	return declare("redfin.training.WidgetLifecycle", [_WidgetBase, _TemplatedMixin], {
+		templateString: "<div class='WidgetLifecycle' data-dojo-attach-point='containerNode'></div>",
+
+		constructor: function() {
+			console.log('constructor')
+		},
+
+		postMixInProperties: function() {
+			this.inherited(arguments);
+			console.log('postMixInProperties')
+		},
+
+		buildRendering: function() {
+			this.inherited(arguments);
+			console.log('buildRendering')
+		},
+
+		postCreate: function() {
+			this.inherited(arguments);
+			console.log('postCreate')
+		},
+
+		startup: function() {
+			this.inherited(arguments);
+			console.log('startup')
+		},
+
+		_setValueAttr: function(value) {
+			this._set('value', value)
+			console.log('setting attribute "value" to ', this.value)
+		}
+	});
+
+});
+````
+
+***Usage***
+````HTML
+<html>
+	<script type="text/javascript">
+		require([
+			"dojo/dom", 
+			"redfin/training/WidgetLifecycle",
+			"dojo/domReady!"
+		], function (
+			dom, 
+			WidgetLifecycle
+		) {
+			var widgetLifecycleExample =  new WidgetLifecycle({
+				value: 4
+			}, dom.byId('widgetNode'));
+			widgetLifecycleExample.startup();
+		});
+	</script>
+	<body>
+		<div id="widgetNode"></div>
+	</body>
+</html>
+````
+
+***Output***
+````JS
+constructor
+postMixInProperties
+buildRendering
+setting attribute "value" to 4
+postCreate
+startup
+````
+
+#### constructor()
+
+- Most widgets won't implement a constructor explicitly 
+- Byproduct of declare(); actually not Dijit-specific
+- Raw arguments to the class constructor are available here on the attributes object, but its recommended not to modify them here
+- No widget DOM setup has been done yet for templated widgets
+- Create new arrays and objects here
+
+
+#### postMixInProperties()
+
+- Most widgets won't implement this explicitly 
+- Called after the arguments object has been mixed in to the widget; at this point, any arguments passed in are available on the instance.  However its perferred to only access properties through their setters and not here.
+- No DOM setup work has been done at this point - the this.domNode reference isn't available
+
+
+#### buildRendering()
+
+- If you're instantiating nodes programmatically, or manipulating the dom in any way as part of widget setup, it should be done in this method!
+- After this method returns, your widget will be added to the DOM; the cost of manipulating nodes is increased since the browser may have to redraw
+- Don't forget to call this.inherited(arguments) - otherwise the widget won't work, and it won't be obvious why the widget's domNode is available after inherited() is called
+
+
+#### Setter Execution 
+
+- Setters execute in a certain order
+- Any properties that were specified on instanciation are run.
+- Falsy setters don't run, this seems like a dojo bug
+
+#### postCreate()
+
+- Don't forget to call this.inherited(arguments)
+- PostCreate is called after the widget and its children are created, but before it is visible to the user*
+- Widget customization that doesn't involve modifying the dom should occur in this method
+- PostCreate is called after custom setters have run
+
+
+#### startup()
+
+- Don't forget to call this.inherited(arguments)
+- Startup is called automatically if your widgets are being instantiated via a template (which we'll see in a minute)
+- If you programmatically instantiate a widget, don't forget to call startup. It will appear to work, and probably will, until somebody uses a dijit that expects to have startup called on it, and then it's a mess to track down.
+- startup() automaticaly calls startup() on the child nodes of a templated widget that has a "containerNode" node reference.  You can see this attach point in the example above.  Thats why its there.
+
+
+
 ### Events
 
-
+TODO 
 
 
 ## Redfin API 
@@ -747,4 +1061,12 @@ define([
 	- whether or not it's called has nothing to do with the *Redfin result code* from the server
 	- Note: we need an error callback because async callbacks can't throw exceptions in the current context -- there's no appropriate place for a try/catch
 
+
+
+## Redfin Best Practices
+
+- Don't write HTML in JS files
+- Use query as little as possible
+- Pascal case class names
+- Don't use dojo create to create dom, use tempalated! 
 
