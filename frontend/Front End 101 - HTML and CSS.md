@@ -301,6 +301,23 @@ table is … cell based
 
 -->
 
+
+## CSS at Redfin
+
+**TODO**
+
+* reset
+* rollups
+* directory structure
+* 'common' vs team
+	* search
+	* marketplaces
+	* commerce / crm
+	* etc
+
+
+
+
 **UP NEXT**: *[an introduction to LESS CSS](https://github.com/egid/training/blob/master/frontend/Front%20End%20120%20-%20LESS.md)*.
 
 

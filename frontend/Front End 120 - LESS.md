@@ -66,7 +66,7 @@ Which will output this CSS (try it with [LESS2CSS][less2css]):
 
 ## Variables
 
-LESS supports variables. Nice.
+LESS supports **variables**. Nice.
 
 Normally, variables defined in LESS would be globals, always. This is not so great — how do you know if a variable name is in use already? What if you redefine it? At Redfin, **we've disabled global variables** and replaced them with the Preamble, which makes *some* variables available globally. This more or less solves the problem.
 
@@ -75,7 +75,7 @@ Normally, variables defined in LESS would be globals, always. This is not so gre
 
 ## Functions
 
-
+LESS offers **functions**. 
 
 
 <!-- LINKS -->
