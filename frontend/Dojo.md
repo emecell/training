@@ -597,6 +597,13 @@ Major Parts of Dijit
 
 However, not all of the project is particularly useful.  In our years of experementing we've been burned by the temptation to use the pre-built widgets.  They're needlessly complex, hard to maintain, and don't contain all the functionality that we require.  As, a rule of thumb, don't use any of the pre-built UI widgets in the Dijit project.
 
+That said, heres the useful stuff: 
+- _WidgetBase
+- _TemplatedMixin
+- _WidgetsInTemplateMixin
+_ _Container
+- _Contained
+
 ### What is a Widget?
 
 Any reusable UI element.  We have thousands, ranging from a simple display of a item in a list to whole pages.  Where Carl Sagan said "We are made of star stuff" our web interface is made of widget stuff.  Lots of widget stuff.  A loose definition of a widget is a tight paring of a dom fragment (a chunk of html) and a Dojo class
