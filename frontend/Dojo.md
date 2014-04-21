@@ -6,7 +6,7 @@ You'd be right to assume that Dojo has its own extensive documnentation.  Howeve
 
 ## What is Dojo?
 
-A JavaScript Framework like JQuery, etc.
+A JavaScript framework like AngularJS, Backbone.js, or Ember.js.
 
 ### Why frameworks?
 
