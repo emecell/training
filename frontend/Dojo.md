@@ -2,7 +2,9 @@
 
 ## Why this document?
 
-You'd be right to assume that Dojo has its own extensive documnentation.  However, the project is huge, and it's frankly not worth your time to read through all of it.  We've used Dojo for a while here at Redfin, so this document aims to help you learn what we already have.  Specifically, this document lightly details the parts of Dojo that we like and find useful. 
+You'd be right to assume that Dojo has its own extensive documentation.  However, the project is huge, and it's frankly not worth your time to read through all of it.  We've used Dojo for a while here at Redfin, so this document aims to help you learn what we already have.  Specifically, this document lightly details the parts of Dojo that we like and find useful.
+
+Also, there are parts of the Dojo framework that we’ve tried and burned our hands on.  Not all of the project is performant, easy to use, and stable.   
 
 ## What is Dojo?
 
@@ -52,7 +54,7 @@ define([], function () {
 - File name starts with a lowercase letter; that's a convention for modules that don't export a class.  More on this later
 - Our module name is "redfin/training/user". That's not directly declared anywhere -- it's implicit in the file path.
 - We use define(...) to define the module. It takes an array of module dependencies, and a callback function invoked when those dependencies are satisfied. 
-- Whatever is returned from the module is the publicly-visible "API" wihcih will typicallybe one of three things:
+- Whatever is returned from the module is the publicly-visible "API" which will typically one of three things:
 	- A constructor function (the result of dojo/_base/declare -- coming up soon)
 	- An object literal with one or more functions on it (seen here)
 	- A single function (we'll talk about dojo/on eventually)
@@ -214,7 +216,7 @@ In Spanish, we say Hola! instead of Hello
 - this.inherited(arguments) passes the method arguments up to the superclass method
 - if you want to modify the arguments, pass an additional array: this.inherited(arguments, [newArg1, newArg2, ...]); The new array will be passed to the superclass method instead of arguments
 
-### Mutliple Inheritance
+### Multiple Inheritance
 A bit more on declare() You may have noticed in the previous example that declare() takes an array.  Dojo provides us with a mechanism for mutliple inheritance.
 
 ***redfin/training/ClassC.js***
@@ -586,8 +588,21 @@ This is an error!
 
 ### What is Dijit?
 
-- A part of Dojo
-- A framework for creating UI widgets
+Dijit is a widget system that sits on top of the Dojo core.  It's designed to make creating interactive web applications easy by minimizing the amount of Javascript, HTML, and CSS that the developer has to write.
+
+Major Parts of Dijit
+- Pre-Built UI Widgets
+- Mixins to facilitate creation of UI widgets
+- Utility classes 
+
+However, not all of the project is particularly useful.  In our years of experementing we've been burned by the temptation to use the pre-built widgets.  They're needlessly complex, hard to maintain, and don't contain all the functionality that we require.  As, a rule of thumb, don't use any of the pre-built UI widgets in the Dijit project.
+
+That said, heres the useful stuff: 
+- _WidgetBase
+- _TemplatedMixin
+- _WidgetsInTemplateMixin
+_ _Container
+- _Contained
 
 ### What is a Widget?
 
@@ -714,7 +729,7 @@ define([
 </html>
 ````
 
-- The template for the widget will replace the node that its instanciated at. The node where it was where it was create will no longer exist.
+- The template for the widget will replace the node that its instantiated at. The node where it was where it was create will no longer exist.
 
 
 
@@ -765,13 +780,13 @@ define([
 Notes in templates can have certain annotations that templated uses.
 
 ##### data-dojo-attach-point 
-Nodes that have a declared attach point have a reference as the attch point name to them copied to the class instance.  This is extremely useful, we use it every day.
+Nodes that have a declared attach point have a reference as the attach point name to them copied to the class instance.  This is extremely useful, we use it every day.
 
 ##### data-dojo-type
-This allows you to instanciate new widgets directly from the html template.  Do not use this!  TODO: explain why
+This allows you to instantiate new widgets directly from the html template.  Do not use this!  TODO: explain why
 
 ##### data-dojo-attach-event
-Allows you to register event handlers directly drom the html template.  Do not use this either! TODO: explain why
+Allows you to register event handlers directly dom the html template.  Do not use this either! TODO: explain why
 
 ##### Variable insertion
 You can insert strings into the template with ${} syntax.  Do not use this either either! TODO: explain why
@@ -949,7 +964,7 @@ startup
 #### postMixInProperties()
 
 - Most widgets won't implement this explicitly 
-- Called after the arguments object has been mixed in to the widget; at this point, any arguments passed in are available on the instance.  However its perferred to only access properties through their setters and not here.
+- Called after the arguments object has been mixed in to the widget; at this point, any arguments passed in are available on the instance.  However its preferred to only access properties through their setters and not here.
 - No DOM setup work has been done at this point - the this.domNode reference isn't available
 
 
@@ -963,7 +978,7 @@ startup
 #### Setter Execution 
 
 - Setters execute in a certain order
-- Any properties that were specified on instanciation are run.
+- Any properties that were specified on instantiation are run.
 - Falsy setters don't run, this seems like a dojo bug
 
 #### postCreate()
@@ -979,7 +994,7 @@ startup
 - Don't forget to call this.inherited(arguments)
 - Startup is called automatically if your widgets are being instantiated via a template (which we'll see in a minute)
 - If you programmatically instantiate a widget, don't forget to call startup. It will appear to work, and probably will, until somebody uses a dijit that expects to have startup called on it, and then it's a mess to track down.
-- startup() automaticaly calls startup() on the child nodes of a templated widget that has a "containerNode" node reference.  You can see this attach point in the example above.  Thats why its there.
+- startup() automatically calls startup() on the child nodes of a templated widget that has a "containerNode" node reference.  You can see this attach point in the example above.  Thats why its there.
 
 
 
@@ -989,7 +1004,7 @@ startup
 
 TODO: Basic Example
 
-- Dojo referres to dojo/on as their "event normalization api"
+- Dojo refers to dojo/on as their "event normalization api"
 - Use dojo/on to connect to DOM events: click, keypress, keydown, etc.
 - The callback is executed in the context of the caller, so in most cases you'll want to use lang.hitch callback executed in context of class
 - dojo/on returns a handle with a remove() function that cleans up the connection
@@ -1040,7 +1055,7 @@ TODO: Topic Example
 TODO: Evented Example
 
 dojo/Evented is designed to provide a class that allows a developer to emit events and provide an easy way to allow those events to be connected to by downstream users. It leverages the API concepts of dojo/on.
-- used for what are commonly referred to as "sythetic" events, which are different than DOM events, which dojo/on normalises.
+- used for what are commonly referred to as "synthetic" events, which are different than DOM events, which dojo/on normalizes.
 - Useful for firing and listening to data changes or non user based actions
 
 
