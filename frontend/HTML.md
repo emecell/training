@@ -40,23 +40,25 @@ Tags and their contents are referred to as an *element*. Here's a paragraph elem
 	* void elements are self-contained, must not have contents, and can be marked up as 'self-closing' tags with an end `/` to better illustrate this.
 		For example, this image tag is self-closing: `<img src="foo" ... />`.
 3. attributes / data attrs
+
+	````html
+	<div id="unique" class="reusable multiple" style="">
+		div			block html element. contains attributes:
+			id		once per page. use sparingly.
+			class	this is your swiss army knife. can reference multiple classes.
+			style	defines an inline style. DO NOT USE.
+
+		inline html elements:
+			<span class="highlight">inline styling</span>
+			<em>em</em>, not <i>italic</i>.
+			<strong>strong</strong>, not <b>bold</b>.
+	</div>
+	````
+
 4. semantic HTML
 	* use the right thing in the right place
 	* nesting of block vs inline elements
 
-````html
-<div id="unique" class="reusable multiple" style="">
-	div			block html element. contains attributes:
-		id		once per page. use sparingly.
-		class	this is your swiss army knife. can reference multiple classes.
-		style	defines an inline style. DO NOT USE.
-
-	inline html elements:
-		<span class="highlight">inline styling</span>
-		<em>em</em>, not <i>italic</i>.
-		<strong>strong</strong>, not <b>bold</b>.
-</div>
-````
 
 **UP NEXT**: *[an introduction to basic CSS](https://github.com/egid/training/blob/master/frontend/CSS.md)*.
 

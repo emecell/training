@@ -1,3 +1,5 @@
+***Before reading***, *you should be familiar with the basics of [HTML](https://github.com/egid/training/blob/master/frontend/HTML.md) & CSS](https://github.com/egid/training/blob/master/frontend/CSS.md)*.
+
 # Front End 250: Mobile all the Things
 
 
