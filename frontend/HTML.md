@@ -42,38 +42,43 @@ To be valid code, tags must be *nested* properly. This means that the opening an
 
 > **NOTE**: The best way to know that your code is going to work is to use a text editor or IDE that will syntax-highlight HTML. Some auto-complete or auto-close tags, which can be handy as well. I recommend [Sublime Text][sublimeintro], but it's your call.
 
-Some tags are self-contained, and must not have contents; these **void elements** (such science fiction. wow.) are often marked up as "self-closing" tags, which end with a `/`; the image tag is the most typical example, and at its simplest looks like `<img />`. This example wouldn't actually *do* anything, but it's valid. Here's a more real-world example of an image tag:
+Some tags are self-contained, and must not have contents; these **void elements** (such science fiction. wow.) are often marked up as "self-closing" tags, which (optionally, but do it anyway) end with a `/`; the image tag is the most typical example, and at its simplest looks like `<img />`. This example wouldn't actually *do* anything, but it's valid. Here's a more real-world example of an image tag:
 
 ````html
-<img src="http://bukk.it/howimakeweb.gif" alt="How I make web (animated gif)" />
+<img src="http://bukk.it/howimakeweb.gif" alt="Basic HTML" />
 ````
 
 Notice how the tag has some key-value pairs, like `src` and `alt`? This brings us to:
 
 ### Attributes
 
-That's right, attributes. HTML elements obtain their attributes from tags, and these can be used to provide the browser information about how they should look and behave.
+That's right, attributes. HTML elements obtain their attributes from tags, and these can be used to provide the browser information about how they should look and behave. They consist of an attribute *name* and *value*, and the value should be surrounded by quotation marks, like so: `attr="value"`.
 
-3. attributes / data attrs
+Here's an example of some basic attributes and tags in use:
 
-	````html
-	<div id="unique" class="reusable multiple" style="">
-		div			block html element. contains attributes:
-			id		once per page. use sparingly.
-			class	this is your swiss army knife. can reference multiple classes.
-			style	defines an inline style. DO NOT USE.
+````html
+<div id="unique" class="reusable multiple" style="">
+	div			block html element. contains attributes:
+		id		is unique, and can only be used once per page. *use sparingly*.
+		class	this is your swiss army knife. can reference multiple classes.
+		style	defines an inline style. DO NOT USE. We will find you.
 
-		inline html elements:
-			<span class="highlight">inline styling</span>
-			<em>em</em>, not <i>italic</i>.
-			<strong>strong</strong>, not <b>bold</b>.
-	</div>
-	````
+	inline html elements:
+		<span class="highlight">this would inherit the style of the 'highlight' CSS class</span>
+		<em>em</em> is the proper way to make text <i>italic</i>.
+		<strong>strong</strong> is the proper way to make text <b>bold</b>.
+</div>
+````
 
-4. semantic HTML
-	* use the right thing in the right place
-	* nesting of block vs inline elements
+### Semantics
 
+One of the big challenges in writing HTML is to make sure that for a given task, the correct element is used. There are entire [chapters][html5semantics] written about semantics, probably unsurprisingly. Still, there are some simple guidelines (note: not rules) to follow that can get things on the right track.
+
+**You should use elements that reflect their contents.** This means wrapping paragraphs in `<p>`, bulleted lists in `<ul>`, headlines in a `<h2>` or `<h3>` - that sort of thing. Don't create an unordered list and then use CSS to turn it into a numbered list later - that's unsemantic *and* happens to be pretty stupid.
+
+Conversely: **You should not use elements just because they *look* correct**. Just because a mockup has big gaps between paragraphs, it's not acceptable to throw a ton of line breaks in there to make it happen. If I see `<br/><br/><br/><br/><br/>` anywhere, I'm running `git blame` and chasing you down.
+
+Basically, use elements as they were intended, as much as possible. Keep the *visual presentation* of the page separate from the markup, and do the layout and interaction with Cascading Style Sheets and JavaScript. Lucky for you, it's now time to read about CSS!
 
 **UP NEXT**: *[an introduction to basic CSS](https://github.com/egid/training/blob/master/frontend/CSS.md)*.
 
@@ -105,3 +110,5 @@ That's right, attributes. HTML elements obtain their attributes from tags, and t
 
  [rsg-colors]: https://trunk.redfintest.com/admin/style-guide/stingray/brand-colors
  [sublimeintro]: https://github.com/egid/training/blob/master/tools/SublimeText.md
+
+ [html5semantics]: http://diveintohtml5.info/semantics.html
