@@ -1,4 +1,4 @@
-***Before reading***, *you should be familiar with the basics of [HTML](https://github.com/egid/training/blob/master/frontend/HTML.md) & CSS](https://github.com/egid/training/blob/master/frontend/CSS.md)*.
+***Before reading***, *you should be familiar with the basics of [HTML](https://github.com/egid/training/blob/master/frontend/HTML.md) & [CSS](https://github.com/egid/training/blob/master/frontend/CSS.md)*.
 
 # LESS is moar at Redfin
 
