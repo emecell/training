@@ -72,7 +72,7 @@ Tags and their contents are referred to as an *element*. Here's a paragraph elem
 * [CSS3 for Web Designers, by Dan Cederholm][abcss]
 * [Codecademy HTML & CSS track][codec]
 	* great series of starting tutorials if you're very new to HTML & CSS
-* [MDN Intro to HTML][mdnintro]
+* [MDN Intro to HTML][mdnintro] provided a ton of inspiration for this document.
 
 <!-- LINKS -->
 
