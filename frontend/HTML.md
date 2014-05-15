@@ -16,7 +16,7 @@ HTML was first proposed [in 1990](http://www.w3.org/Proposal.html) by Tim Berner
 </html>
 ````
 
-You might be wondering what in blazes "valid HTML5" is, and why you should care. Valid markup is going to be correctly understood by a browser, by a search engine bot like Google, or by a screenreader. If you want your content to get parsed correctly, in any context, you ought to be writing valid HTML. Thankfully, HTML is reasonably simple.
+You might be wondering what "valid HTML5" is, and why you should care. Valid markup is going to be correctly understood by a browser, by a search engine bot like Google, or by a screenreader. If you want your content to get parsed correctly, in any context, you ought to be writing valid HTML. Thankfully, HTML is reasonably simple.
 
 ## The basics!
 

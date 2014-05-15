@@ -167,29 +167,13 @@ Also known as "direct descendant", child selectors target *only* immediate child
 
 The **cascade** is how a browser determines which CSS declaration "wins" if multiple rules are competing. Different sources of CSS have varying levels of importance. At the high end is an `!important` override rule in a visitor's user stylesheet, and the low end is a normal rule in the browser's default user agent styles. 
 
-For a given node, the browser will: 
-
-1. Find all matching selectors
-2. Sort according to importance and origin
-
-	|   | Origin    			 | importance 		|
-	|---|------------------------|------------------|
-	| 1 | user agent (browser)	 | normal			|
-	| 2 | user agent (browser)	 | !important		|
-	| 3 | user (visitor)		 | normal			|
-	| 4 | author (website)		 | normal			|
-	| 5 | author (website)		 | !important		|
-	| 6 | user (visitor)		 | !important		|
-
-3. Sort rules with same importance and origin by specificity
-4. Finally, sort by order specified. Last rule specified wins
-
-For a lot more detail, read the [MDN article][mdncascade] on the CSS Cascade.
-
+The cascade is important, but hard to explain. Others have done it better! **Read the [MDN article on the CSS Cascade][mdncascade], and come back when you're done.**
 
 ### Specificity
 
-Go read Smashing Mag's [CSS Specificity: Things You Should Know](http://coding.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/) by Vitaly Friedman. Come back when you're done. If you're just looking for a refresher, check out Andy Clarke's [CSS: Specificity Wars](http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html), a Star Wars-themed illustration of specificity. 
+Again, others have written great stuff on the technical aspects of CSS. Please read Smashing Mag's [CSS Specificity: Things You Should Know](http://coding.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/) by Vitaly Friedman, and pick up the rest of this document when you're done. 
+
+> **NOTE**: If you're just looking for a refresher, check out Andy Clarke's [CSS: Specificity Wars](http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html), a Star Wars-themed illustration of specificity. 
 
 
 ### Inheritance
