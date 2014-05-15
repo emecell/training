@@ -20,7 +20,7 @@ You might be wondering what in blazes "valid HTML5" is, and why you should care.
 
 ## The basics!
 
-If any of this is ***too*** basic, feel free to move on. But it might be worth a refresher anyway. If nothing else, you can correct mistakes, right?
+If any of this is ***too*** basic, feel free to move on. But it might be worth a refresher anyway. If nothing else, you can correct mistakes in this document, right?
 
 ### What the blazes is a tag?
 
@@ -32,13 +32,28 @@ Tags and their contents are referred to as an *element*. Here's a paragraph elem
 <p>This paragraph, and its surrounding tags, is a single element</p>
 ````
 
+To be valid code, tags must be *nested* properly. This means that the opening and closing tags of one element must lie within their **parent** element:
 
-1. tags
-	* basic css: block vs inline
-2. html5 syntax
-	* valid code (nested properly, no weird attributes)
-	* void elements are self-contained, must not have contents, and can be marked up as 'self-closing' tags with an end `/` to better illustrate this.
-		For example, this image tag is self-closing: `<img src="foo" ... />`.
+````html
+<p>This paragraph is <strong>valid HTML</strong>, because the 'strong' tags lie within the 'p' tags.</p>
+
+<p>This paragraph is <strong>invalid HTML</p></strong>, because it's nested improperly.
+````
+
+> **NOTE**: The best way to know that your code is going to work is to use a text editor or IDE that will syntax-highlight HTML. Some auto-complete or auto-close tags, which can be handy as well. I recommend [Sublime Text][sublimeintro], but it's your call.
+
+Some tags are self-contained, and must not have contents; these **void elements** (such science fiction. wow.) are often marked up as "self-closing" tags, which end with a `/`; the image tag is the most typical example, and at its simplest looks like `<img />`. This example wouldn't actually *do* anything, but it's valid. Here's a more real-world example of an image tag:
+
+````html
+<img src="http://bukk.it/howimakeweb.gif" alt="How I make web (animated gif)" />
+````
+
+Notice how the tag has some key-value pairs, like `src` and `alt`? This brings us to:
+
+### Attributes
+
+That's right, attributes. HTML elements obtain their attributes from tags, and these can be used to provide the browser information about how they should look and behave.
+
 3. attributes / data attrs
 
 	````html
@@ -89,3 +104,4 @@ Tags and their contents are referred to as an *element*. Here's a paragraph elem
  [abhtml]: http://www.abookapart.com/products/html5-for-web-designers
 
  [rsg-colors]: https://trunk.redfintest.com/admin/style-guide/stingray/brand-colors
+ [sublimeintro]: https://github.com/egid/training/blob/master/tools/SublimeText.md
