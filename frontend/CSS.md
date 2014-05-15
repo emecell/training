@@ -5,7 +5,7 @@ Cascading Style Sheets [is a standard](http://www.w3.org/Style/CSS) that defines
 
 ## Why use CSS?
 
-The biggest advantage of CSS is the ability to separate structure and content from presentation.Developers can theme widgets, or modify layouts, without touching the HTML. We can also name and reuse frequently-used groups of styles. These can include the following attributes (and more):
+The biggest advantage of CSS is the ability to separate structure and content from presentation. Developers can theme widgets, or modify layouts, without touching the HTML. We can also name and reuse frequently-used groups of styles. These can include the following attributes (and more):
 
 * text color
 * font attributes (face, size, weight, style, line-height)
